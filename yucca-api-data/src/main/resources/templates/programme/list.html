@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Yucca - Liste des Programmes</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+
+    <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
+
+</head>
+<body>
+<div class="container">
+    <div th:if="${not #lists.isEmpty(programmes)}">
+        <h2>Liste des Programmes</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Commentaire</th>
+                <th>Temporaire</th>
+                <th>Date Creation</th>
+            </tr>
+            <tr th:each="programme : ${programmes}">
+                <td th:text="${programme.id}"></td>
+                <td th:text="${programme.nom}"></td>
+                <td th:text="${programme.commentaire}"></td>
+                <td th:text="${programme.temporaire}"></td>
+                <td th:text="${programme.dateCreation}"></td>
+                <td><a th:href="${'show/' + programme.id}">Voir</a> </td>
+                <td><a th:href="${'edit/' + programme.id}">Mettre à jour</a> </td>
+                <td><a th:href="${'delete/' + programme.id}">Supprimer</a> </td>
+            </tr>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <a href="/programme/new">Nouveau Programme</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Yucca - Correction</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+            th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+
+    <link href="../../static/css/spring-core.css"
+          th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
+</head>
+<body>
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-6">
+            <h2>Correction</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"><b>Correction Id:</b></label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${correction.id}">Correction Id</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"><b>Titre:</b></label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${correction.titre}">Titre</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"><b>Probleme:</b></label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${correction.probleme}">Probleme</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"><b>Solution:</b></label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${correction.solution}">Solution</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"><b>Commentaire:</b></label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${correction.commentaire}">Commentaire</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 sm-2 control-label"><b>Etat:</b></label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${correction.etat}">Etat</p>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="row">
+        <div class="col-sm-3">
+            <a href="/correction/new">Nouvelle Correction</a>
+        </div>
+    </div>
+    <div class="row">
+	    <div th:if="${not #lists.isEmpty(correction.programmes)}">
+	        <h2>Liste des programmes de la correction</h2>
+	        <table class="table table-striped">
+	            <tr>
+	                <th>Id</th>
+	                <th>Nom</th>
+	                <th>Commentaire</th>
+	                <th>Temporaire</th>	                
+	                <th>Date Creation</th>
+	            </tr>
+	            <tr th:each="programme : ${correction.programmes}">
+	                <td th:text="${programme.id}"></td>
+	                <td th:text="${programme.nom}"></td>
+	                <td th:text="${programme.commentaire}"></td>
+	                <td th:text="${programme.temporaire}"></td>
+	                <td th:text="${programme.dateCreation}"></td>
+	                <td><a th:href="${'show/' + programme.id}">Voir</a> </td>
+	                <td><a th:href="${'edit/' + programme.id}">Mettre à jour</a> </td>
+	                <td><a th:href="${'delete/' + programme.id}">Supprimer</a> </td>
+	            </tr>
+	        </table>
+	    </div>
+    </div>
+</div>
+
+</body>
+</html>

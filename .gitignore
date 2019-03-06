@@ -1,0 +1,13 @@
+target
+.settings
+.classpath
+.project
+.metadata
+.recommenders
+.sonarlint
+.idea
+.factorypath
+.vscode
+/RemoteSystemsTempFiles
+*.iml
+yucca-api-data/derby.log
