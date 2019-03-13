@@ -3,6 +3,7 @@
  */
 package fr.edu.aix.yuccaspringboot.domain;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 /**
  * @author omignot
@@ -50,6 +52,7 @@ public class Programme {
 	@Column(name="CUSER", nullable=false, updatable=false)
 	private String utilisateurCreation;
 	
+	@Version
 	@Column(name="UPDATED_AT", nullable=false)
 	private Date dateModification;
 	

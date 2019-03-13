@@ -51,10 +51,10 @@ public class Correction {
 	private String utilisateurCreation;
 	
 	@Column(name="UPDATED_AT")
-	private Date dateModifcation;
+	private Date dateModification;
 	
 	@Column(name="MUSER")
-	private String utilisateurModifcation;	
+	private String utilisateurModification;	
 	
 	@ManyToMany
 	@JoinTable(
@@ -91,7 +91,7 @@ public class Correction {
 	 * @param versions
 	 */
 	public Correction(Long id, String titre, String probleme, String solution, String commentaire, char etat,
-			Date dateCreation, String utilisateurCreation, Date dateModifcation, String utilisateurModifcation,
+			Date dateCreation, String utilisateurCreation, Date dateModification, String utilisateurModification,
 			List<Programme> programmes, List<Version> versions) {
 		super();
 		this.id = id;
@@ -102,8 +102,8 @@ public class Correction {
 		this.etat = etat;
 		this.dateCreation = dateCreation;
 		this.utilisateurCreation = utilisateurCreation;
-		this.dateModifcation = dateModifcation;
-		this.utilisateurModifcation = utilisateurModifcation;
+		this.dateModification = dateModification;
+		this.utilisateurModification = utilisateurModification;
 		this.programmes = programmes;
 		this.versions = versions;
 	}
@@ -225,29 +225,29 @@ public class Correction {
 	/**
 	 * @return the dateModifcation
 	 */
-	public Date getDateModifcation() {
-		return dateModifcation;
+	public Date getDateModification() {
+		return dateModification;
 	}
 
 	/**
 	 * @param dateModifcation the dateModifcation to set
 	 */
-	public void setDateModifcation(Date dateModifcation) {
-		this.dateModifcation = dateModifcation;
+	public void setDateModifcation(Date dateModification) {
+		this.dateModification = dateModification;
 	}
 
 	/**
 	 * @return the utilisateurModifcation
 	 */
-	public String getUtilisateurModifcation() {
-		return utilisateurModifcation;
+	public String getUtilisateurModification() {
+		return utilisateurModification;
 	}
 
 	/**
 	 * @param utilisateurModifcation the utilisateurModifcation to set
 	 */
-	public void setUtilisateurModifcation(String utilisateurModifcation) {
-		this.utilisateurModifcation = utilisateurModifcation;
+	public void setUtilisateurModification(String utilisateurModification) {
+		this.utilisateurModification = utilisateurModification;
 	}
 
 	/**

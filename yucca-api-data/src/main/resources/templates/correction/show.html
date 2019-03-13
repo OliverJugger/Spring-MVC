@@ -1,98 +1,159 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Yucca - Correction</title>
+    <title>Yucca - Consulter une correction</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
-    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
-          th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+    <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"
           rel="stylesheet" media="screen"/>
+          
+    <link href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"
+          rel="stylesheet" media="screen"/>
+          
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+          
+    <link th:href="@{/css/style.css}" rel="stylesheet" media="screen"/>
 
-    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
-            th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
-
-    <link href="../../static/css/spring-core.css"
-          th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
 </head>
 <body>
-<div class="container">
+<!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">Consulter une correction</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Accueil
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">A Propos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+	<div class="container-fluid" style="margin-top: 15px;">
+		<div class="row">
 
-    <div class="row">
-        <div class="col-sm-6">
-            <h2>Correction</h2>
+        <div class="col-lg-2">
+
+          <h1 class="my-4">Yucca</h1>
+          <div class="list-group">
+            <a th:href="${'/programme/list'}" class="list-group-item">Consulter les programmes</a>
+            <a th:href="${'/correction/list'}" class="list-group-item">Consulter les corrections</a>
+            <a th:href="${'/version/list'}" class="list-group-item">Consulter les versions</a>
+          </div>
+          
         </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-8">
-            <form class="form-horizontal">
-                <div class="form-group">
-                    <label class="col-sm-2 control-label"><b>Correction Id:</b></label>
-                    <div class="col-sm-10">
-                        <p class="form-control-static" th:text="${correction.id}">Correction Id</p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label"><b>Titre:</b></label>
-                    <div class="col-sm-10">
-                        <p class="form-control-static" th:text="${correction.titre}">Titre</p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label"><b>Probleme:</b></label>
-                    <div class="col-sm-10">
-                        <p class="form-control-static" th:text="${correction.probleme}">Probleme</p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label"><b>Solution:</b></label>
-                    <div class="col-sm-10">
-                        <p class="form-control-static" th:text="${correction.solution}">Solution</p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label"><b>Commentaire:</b></label>
-                    <div class="col-sm-10">
-                        <p class="form-control-static" th:text="${correction.commentaire}">Commentaire</p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 sm-2 control-label"><b>Etat:</b></label>
-                    <div class="col-sm-10">
-                        <p class="form-control-static" th:text="${correction.etat}">Etat</p>
-                    </div>
-                </div>
+        
+        <div class="col-lg-7">
+             <form class="form-horizontal">             
+             	<h2 class="my-4" th:text="${correction.titre}"></h2>
+             	<br/>
+             	<p>
+					<a th:href="${'/correction/edit/' + correction.id}" class="btn btn-default" style ="background-color: grey; color:white;"><i class="fas fa-edit"></i> Modifier</a>
+					<a th:href="${'/correction/exporter/' + correction.id}" class="btn btn-primary"><i class="fas fa-file-import"></i> Exporter</a>
+					<a th:href="${'/correction/delete/' + correction.id}" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Supprimer</a>
+            	 </p>
+            	<div class="form-group">
+             		<p th:text="'Numéro : ' +  ${correction.id}"></p>
+             	</div>
+             	
+             	<div class="form-group">
+             		<p th:text="'Application : '+ ${correction.id}"></p>
+             	</div>
+             	
+             	<div class="form-group">
+             		<p th:text="'État : '+ ${correction.etat}"></p>
+             	</div>
+             	
+             	<div class="form-group">
+             		<p th:text="'Exportée : '+ 'Oui'"></p>
+             	</div>
+             	
+             	<div class="form-group">
+				  <label for="probleme"><b>Problème:</b></label>
+				  <textarea class="form-control" rows="5" id="probleme" th:text="${correction.probleme}"></textarea>
+				</div>
+				<div class="form-group">
+				  <label for="solution"><b>Solution:</b></label>
+				  <textarea class="form-control" rows="5" id="solution" th:text="${correction.solution}"></textarea>
+				</div>            
+	            <div class="form-row">
+	            	<p th:text="'Programmes rattachés :'"></p><i class="fas fa-plus-circle"></i>
+	            </div>
+	            <div th:if="${not #lists.isEmpty(correction.programmes)}">
+			        <table id="datatable" class="table table-striped">
+			        	<thead>
+			            <tr>
+			                <th>ID</th>
+			                <th>Nom</th>
+			                <th></th>
+			                <th></th>
+			                <th></th>
+			            </tr>
+			            </thead>			            
+			            <tbody>
+				            <tr th:each="programme : ${correction.programmes}">
+				                <td th:text="${programme.id}"></td>
+				                <td th:text="${programme.nom}"></td>
+				                <td><a th:href="${'/programme/show/' + programme.id}"> Voir </a> </td>
+				                <td><a th:href="${'/programme/edit/' + programme.id}">Edit</a> </td>
+								<td><a th:href="${'/programme/delete/' + programme.id}">Delete</a> </td>			               
+				            </tr>
+			            </tbody>
+			        </table>
+			   </div>			
             </form>
+               
+          </div>  
+	      <!-- /.col-lg-7 -->
+	      
+	      <div class="col-lg-3">
+	          <form class="form-horizontal">
+             	<h2 class="my-4"></h2>
+             	<br/>
+             	<p th:text="'Responsable : Olivier Mignot'"></p>
+             	<p th:text="'Rapporteur : Olivier Mignot'"></p>
+             	<p th:text="'Création : ' + ${#dates.format(correction.dateCreation, 'dd/MM/yyyy - HH:mm')}"></p>	
+             	<p th:text="'Mise à jour : ' + ${#dates.format(correction.dateModification, 'dd/MM/yyyy - HH:mm')}"></p>	
+             	<div class="form-group">
+				  <label for="probleme">Commentaire :</label>
+				  <textarea class="form-control" rows="5" id="probleme" th:text="${correction.commentaire}"></textarea>
+				</div>
+			</form>          
         </div>
-        <div class="row">
-        <div class="col-sm-3">
-            <a href="/correction/new">Nouvelle Correction</a>
+			
         </div>
+        
+        </div>
+      <!-- /.row -->
+
     </div>
-    <div class="row">
-	    <div th:if="${not #lists.isEmpty(correction.programmes)}">
-	        <h2>Liste des programmes de la correction</h2>
-	        <table class="table table-striped">
-	            <tr>
-	                <th>Id</th>
-	                <th>Nom</th>
-	                <th>Commentaire</th>
-	                <th>Temporaire</th>	                
-	                <th>Date Creation</th>
-	            </tr>
-	            <tr th:each="programme : ${correction.programmes}">
-	                <td th:text="${programme.id}"></td>
-	                <td th:text="${programme.nom}"></td>
-	                <td th:text="${programme.commentaire}"></td>
-	                <td th:text="${programme.temporaire}"></td>
-	                <td th:text="${programme.dateCreation}"></td>
-	                <td><a th:href="${'show/' + programme.id}">Voir</a> </td>
-	                <td><a th:href="${'edit/' + programme.id}">Mettre à jour</a> </td>
-	                <td><a th:href="${'delete/' + programme.id}">Supprimer</a> </td>
-	            </tr>
-	        </table>
-	    </div>
-    </div>
-</div>
+    <!-- /.container -->
+	
+	 <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Yucca 2019</p>
+      </div>
+      <!-- /.container -->
+    </footer>
 
 </body>
+<script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
+<script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script th:src="@{/js/yucca.js}"></script>
+
 </html>

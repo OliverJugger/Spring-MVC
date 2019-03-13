@@ -68,15 +68,9 @@ public class ProgrammeController {
     public String addProgramme(Programme programme, Model model) {
     	programme.setDateCreation(new Date());
     	programme.setUtilisateurCreation("YUCCA-BACK");
-    	programme.setDateModification(new Date());
     	programme.setUtilisateurModification("YUCCA-BACK");
     	programme.setIdDomaine(new Long(30));
     	programme.setIdDossier(new Long(50));
-    	Correction corr = new Correction();
-    	corr.setId(new Long(3399));
-    	List<Correction> corrections = new ArrayList<Correction>();
-    	corrections.add(corr);
-    	programme.setCorrections(corrections);
         programmeService.addProgramme(programme);
         return "redirect:/programme/list";
     }
