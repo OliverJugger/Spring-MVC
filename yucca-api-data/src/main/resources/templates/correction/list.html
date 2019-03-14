@@ -10,7 +10,6 @@
     <link href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"
           rel="stylesheet" media="screen"/>
           
-          
     <link th:href="@{/css/style.css}" rel="stylesheet" media="screen"/>
 
 </head>
@@ -44,16 +43,14 @@
     </nav>
 	<div class="container-fluid" style="margin-top: 15px;">
 		<div class="row">
-
+		
         <div class="col-lg-2">
-
           <h1 class="my-4">Yucca</h1>
           <div class="list-group">
             <a th:href="${'/programme/list'}" class="list-group-item">Consulter les programmes</a>
             <a th:href="${'/correction/list'}" class="list-group-item">Consulter les corrections</a>
             <a th:href="${'/version/list'}" class="list-group-item">Consulter les versions</a>
           </div>
-          
         </div>
         
         <div class="col-lg-9">
@@ -107,5 +104,4 @@
 <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
 <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script th:src="@{/js/yucca.js}"></script>
-
 </html>

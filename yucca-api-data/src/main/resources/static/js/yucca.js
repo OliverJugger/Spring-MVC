@@ -1,6 +1,6 @@
 $(document).ready( function () {
     $('#datatable').DataTable({  // Reinitialize data table
-    	"pageLength": 5,
+    	"pageLength": 10,
     	"order": [ 0, 'desc' ],
         "responsive" : true,
     	"language": {
