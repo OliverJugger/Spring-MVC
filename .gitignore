@@ -11,3 +11,4 @@ target
 /RemoteSystemsTempFiles
 *.iml
 yucca-api-data/derby.log
+yucca-api-data/mydb/

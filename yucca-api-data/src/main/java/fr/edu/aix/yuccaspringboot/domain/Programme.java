@@ -17,6 +17,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import org.hibernate.annotations.BatchSize;
+
 /**
  * @author omignot
  *
@@ -58,12 +60,7 @@ public class Programme {
 	@Column(name="MUSER", nullable=false)
 	private String utilisateurModification;	
 	
-	@ManyToMany
-	@JoinTable(
-			name="LIEN_CORRECTION_PROGRAMME",
-			joinColumns=@JoinColumn(name="ID_PROGRAMME", referencedColumnName = "ID"),
-			inverseJoinColumns=@JoinColumn(name="ID_CORRECTION", referencedColumnName = "ID")
-	)
+	@ManyToMany(mappedBy = "programmes")
 	private List<Correction> corrections;
 	
 	public Programme() {
@@ -251,8 +248,6 @@ public class Programme {
 	 */
 	public void setCorrections(List<Correction> corrections) {
 		this.corrections = corrections;
-	}
-	
-	
+	}	
 
 }

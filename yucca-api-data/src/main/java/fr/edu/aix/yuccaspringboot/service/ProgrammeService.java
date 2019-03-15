@@ -18,7 +18,7 @@ public class ProgrammeService {
 	public ProgrammeRepository programmeRepository;
 	
 	public List<Programme> getAllProgrammes(){
-        List<Programme> programmes = new ArrayList<>();
+        List<Programme> programmes = new ArrayList<Programme>();
         programmeRepository.findAllByOrderByIdDesc().forEach(programmes::add);
         return programmes;
     }    

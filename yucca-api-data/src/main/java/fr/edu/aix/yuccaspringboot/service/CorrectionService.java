@@ -46,9 +46,9 @@ public class CorrectionService {
     
     public void deleteLiens(Long id) {
     	Correction correction =  this.getCorrection(id);
-    	List<Programme> programmes = correction.getProgrammes();
-    	programmes.clear();
-    	correction.setProgrammes(programmes);
+    	//List<Programme> programmes = correction.getProgrammes();
+    	//programmes.clear();
+    	//correction.setProgrammes(programmes);
     	
     	List<Version> versions = correction.getVersions();
     	versions.clear();
