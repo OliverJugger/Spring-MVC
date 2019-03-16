@@ -25,7 +25,7 @@ public class CorrectionController {
 	@Autowired
 	public CorrectionService correctionService;
 	
-	@RequestMapping("/")
+	@RequestMapping("/list")
     public List<Correction> getAllCorrections(){
         return correctionService.getAllCorrections();
     }

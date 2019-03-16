@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,8 +16,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.BatchSize;
 
 /**
  * @author omignot
@@ -58,21 +57,13 @@ public class Correction {
 	@Column(name="MUSER")
 	private String utilisateurModification;	
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name="LIEN_CORRECTION_PROGRAMME",
 			joinColumns=@JoinColumn(name="ID_CORRECTION", referencedColumnName = "ID"),
 			inverseJoinColumns=@JoinColumn(name="ID_PROGRAMME", referencedColumnName = "ID")
 	)
 	private List<Programme> programmes;
-	
-	@ManyToMany
-	@JoinTable(
-			name="LIEN_CORRECTION_VERSION",
-			joinColumns=@JoinColumn(name="ID_CORRECTION", referencedColumnName = "ID"),
-			inverseJoinColumns=@JoinColumn(name="ID_VERSION", referencedColumnName = "ID")
-	)
-	private List<Version> versions;
 	
 	public Correction() {
 		
@@ -94,7 +85,7 @@ public class Correction {
 	 */
 	public Correction(Long id, String titre, String probleme, String solution, String commentaire, char etat,
 			Date dateCreation, String utilisateurCreation, Date dateModification, String utilisateurModification,
-			List<Programme> programmes, List<Version> versions) {
+			List<Programme> programmes) {
 		super();
 		this.id = id;
 		this.titre = titre;
@@ -107,7 +98,6 @@ public class Correction {
 		this.dateModification = dateModification;
 		this.utilisateurModification = utilisateurModification;
 		this.programmes = programmes;
-		this.versions = versions;
 	}
 
 
@@ -265,19 +255,4 @@ public class Correction {
 	public void setProgrammes(List<Programme> programmes) {
 		this.programmes = programmes;
 	}
-
-	/**
-	 * @return the versions
-	 */
-	public List<Version> getVersions() {
-		return versions;
-	}
-
-	/**
-	 * @param versions the versions to set
-	 */
-	public void setVersions(List<Version> versions) {
-		this.versions = versions;
-	}
-
 }

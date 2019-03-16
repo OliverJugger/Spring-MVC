@@ -4,20 +4,14 @@
 package fr.edu.aix.yuccaspringboot.domain;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
-
-import org.hibernate.annotations.BatchSize;
 
 /**
  * @author omignot
@@ -58,10 +52,7 @@ public class Programme {
 	private Date dateModification;
 	
 	@Column(name="MUSER", nullable=false)
-	private String utilisateurModification;	
-	
-	@ManyToMany(mappedBy = "programmes")
-	private List<Correction> corrections;
+	private String utilisateurModification;
 	
 	public Programme() {
 	}
@@ -80,8 +71,7 @@ public class Programme {
 	 * @param corrections
 	 */
 	public Programme(Long id, String nom, String commentaire, char temporaire, Long idDomaine, Long idDossier,
-			Date dateCreation, String utilisateurCreation, Date dateModification, String utilisateurModification,
-			List<Correction> corrections) {
+			Date dateCreation, String utilisateurCreation, Date dateModification, String utilisateurModification) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -93,7 +83,6 @@ public class Programme {
 		this.utilisateurCreation = utilisateurCreation;
 		this.dateModification = dateModification;
 		this.utilisateurModification = utilisateurModification;
-		this.corrections = corrections;
 	}
 
 	/**
@@ -235,19 +224,5 @@ public class Programme {
 	public void setUtilisateurModification(String utilisateurModification) {
 		this.utilisateurModification = utilisateurModification;
 	}
-
-	/**
-	 * @return the corrections
-	 */
-	public List<Correction> getCorrections() {
-		return corrections;
-	}
-
-	/**
-	 * @param corrections the corrections to set
-	 */
-	public void setCorrections(List<Correction> corrections) {
-		this.corrections = corrections;
-	}	
 
 }

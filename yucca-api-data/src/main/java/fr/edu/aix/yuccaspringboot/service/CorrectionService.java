@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import fr.edu.aix.yuccaspringboot.domain.Correction;
 import fr.edu.aix.yuccaspringboot.domain.Programme;
-import fr.edu.aix.yuccaspringboot.domain.Version;
 import fr.edu.aix.yuccaspringboot.repository.CorrectionRepository;
 
 @Service
@@ -46,13 +45,13 @@ public class CorrectionService {
     
     public void deleteLiens(Long id) {
     	Correction correction =  this.getCorrection(id);
-    	//List<Programme> programmes = correction.getProgrammes();
-    	//programmes.clear();
-    	//correction.setProgrammes(programmes);
+    	List<Programme> programmes = correction.getProgrammes();
+    	programmes.clear();
+    	correction.setProgrammes(programmes);
     	
-    	List<Version> versions = correction.getVersions();
-    	versions.clear();
-    	correction.setVersions(versions);
+    	//List<Version> versions = correction.getVersions();
+    	//versions.clear();
+    	//correction.setVersions(versions);
     	
     	correctionRepository.save(correction);
     }

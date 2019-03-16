@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -47,7 +48,7 @@ public class Version {
 	@Column(name="MUSER")
 	private String utilisateurModifcation;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name="LIEN_CORRECTION_VERSION",
 			joinColumns=@JoinColumn(name="ID_VERSION", referencedColumnName = "ID"),
