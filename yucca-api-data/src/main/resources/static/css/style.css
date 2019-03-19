@@ -7,3 +7,33 @@ body {
     padding-top: 56px;
   }
 }
+
+.etat{
+	padding : 5px;
+	color : white;
+}
+
+.ouverte {
+	background-color : #C01B00;
+}
+
+.corrigee  {
+	background-color : #E8E400;
+}
+
+.testee  {
+	background-color : #2CA9D9;
+}
+
+.fermee {
+	background-color : #61B508;
+}
+
+.titreLargeur{
+	max-width : 5%;
+}
+
+
+
+
+<

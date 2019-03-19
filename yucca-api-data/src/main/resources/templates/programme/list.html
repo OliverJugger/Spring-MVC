@@ -1,101 +1,53 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Yucca - Liste des Programmes</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-
-    <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"
-          rel="stylesheet" media="screen"/>
-          
-   <link href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"
-          rel="stylesheet" media="screen"/>
-          
-          
-    <link th:href="@{/css/style.css}" rel="stylesheet" media="screen"/>
-
+<head th:insert="fragments/general :: headerfiles (titre='Yucca - Liste des Programmes')">
 </head>
 <body>
-<!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="#">Liste des Programmes</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Accueil
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">A Propos</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Services</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+	<!-- Navigation -->    
+    <div th:replace="fragments/general :: navigation (titre='Liste des Programmes')"></div>
+
 	<div class="container-fluid" style="margin-top: 15px;">
 		<div class="row">
 
-        <div class="col-lg-2">
-
-          <h1 class="my-4">Yucca</h1>
-          <div class="list-group">
-            <a th:href="${'/programme/list'}" class="list-group-item">Consulter les programmes</a>
-            <a th:href="${'/correction/list'}" class="list-group-item">Consulter les corrections</a>
-            <a th:href="${'/version/list'}" class="list-group-item">Consulter les versions</a>
-          </div>
-          
-        </div>
-        
-        <div class="col-lg-9">
-              <div th:if="${not #lists.isEmpty(programmes)}">
-			        <table id="datatable" class="table table-striped">
-			        	<thead>
-			            <tr>
-			                <th>ID</th>
-			                <th>Nom</th>
-			                <th>Commentaire</th>
-			                <th>Temporaire</th>
-			                <th>Date Creation</th>
-			                <th></th>
-			                <th></th>
-			                <th></th>
-			            </tr>
-			            </thead>			            
-			            <tbody>
-				            <tr th:each="programme : ${programmes}">
-				                <td th:text="${programme.id}"></td>
-				                <td th:text="${programme.nom}"></td>
-				                <td th:text="${programme.commentaire}"></td>
-				                <td th:text="${programme.temporaire}"></td>
-				                <td th:text="${#dates.format(programme.dateCreation, 'dd/MM/yyyy - HH:mm')}"></td>	
-				                <td><a th:href="${'/programme/show/' + programme.id}"> Voir </a> </td>
-				                <td><a th:href="${'/programme/edit/' + programme.id}">Edit</a> </td>
-								<td><a th:href="${'/programme/delete/' + programme.id}">Delete</a> </td>			               
+	        <div th:replace="/fragments/general :: menu"></div>
+	        
+	        <div class="col-lg-9">
+	        	  <h1>Liste des Programmes</h1>
+	              <div th:if="${not #lists.isEmpty(programmes)}">
+				        <table id="datatable" class="table table-striped">
+				        	<thead>
+				            <tr>
+				                <th>ID</th>
+				                <th>Nom</th>
+				                <th>Commentaire</th>
+				                <th>Temporaire</th>
+				                <th>Date Création</th>
+				                <th></th>
+				                <th></th>
+				                <th></th>
 				            </tr>
-			            </tbody>
-			        </table>
-			   </div>
-			   <a href="/programme/new" class="btn btn-primary" style="margin-bottom: 10px;">Nouveau Programme</a>
-          </div>  
-	      <!-- /.col-lg-9 -->
-			
-        </div>
-        
-        </div>
-      <!-- /.row -->
-
+				            </thead>			            
+				            <tbody>
+					            <tr th:each="programme : ${programmes}">
+					                <td th:text="${programme.id}"></td>
+					                <td th:text="${programme.nom}"></td>
+					                <td th:text="${programme.commentaire}"></td>
+					                <td th:text="${programme.temporaire}"></td>
+					                <td th:text="${#dates.format(programme.dateCreation, 'dd/MM/yyyy - HH:mm')}"></td>	
+					                <td><a th:href="${'/programme/show/' + programme.id}"><i class="fas fa-eye"></i></a> </td>
+					                <td><a th:href="${'/programme/edit/' + programme.id}"><i class="fas fa-edit"></i></a> </td>
+									<td><a th:href="${'/programme/delete/' + programme.id}"><i class="fas fa-trash-alt"></i></a> </td>			               
+					            </tr>
+				            </tbody>
+				        </table>
+				   </div>
+				   <a href="/programme/new" class="btn btn-primary" style="margin-bottom: 10px;">Nouveau Programme</a>
+	          </div>  
+		      <!-- /.col-lg-9 -->
+       </div>
+       <!--  row -->
     </div>
-    <!-- /.container -->
+    <!-- container fluid -->
 	
 	 <!-- Footer -->
     <footer class="py-5 bg-dark">

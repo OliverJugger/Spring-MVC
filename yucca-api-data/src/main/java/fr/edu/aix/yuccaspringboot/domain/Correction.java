@@ -32,6 +32,9 @@ public class Correction {
 	@Column(name="TITRE")
 	private String titre;
 	
+	@Column(name="CODE_PROBLEME")
+	private String codeProbleme;
+	
 	@Column(name="PROBLEME")
 	private String probleme;
 	
@@ -79,23 +82,25 @@ public class Correction {
 	/**
 	 * @param id
 	 * @param titre
+	 * @param codeProbleme
 	 * @param probleme
 	 * @param solution
 	 * @param commentaire
 	 * @param etat
 	 * @param dateCreation
 	 * @param utilisateurCreation
-	 * @param dateModifcation
-	 * @param utilisateurModifcation
+	 * @param dateModification
+	 * @param utilisateurModification
 	 * @param programmes
 	 * @param versions
 	 */
-	public Correction(Long id, String titre, String probleme, String solution, String commentaire, char etat,
-			Date dateCreation, String utilisateurCreation, Date dateModification, String utilisateurModification,
-			List<Programme> programmes, List<Version> versions) {
+	public Correction(Long id, String titre, String codeProbleme, String probleme, String solution, String commentaire,
+			char etat, Date dateCreation, String utilisateurCreation, Date dateModification,
+			String utilisateurModification, List<Programme> programmes, List<Version> versions) {
 		super();
 		this.id = id;
 		this.titre = titre;
+		this.codeProbleme = codeProbleme;
 		this.probleme = probleme;
 		this.solution = solution;
 		this.commentaire = commentaire;
@@ -107,8 +112,6 @@ public class Correction {
 		this.programmes = programmes;
 		this.versions = versions;
 	}
-
-
 
 	/**
 	 * @return the id
@@ -136,6 +139,20 @@ public class Correction {
 	 */
 	public void setTitre(String titre) {
 		this.titre = titre;
+	}
+
+	/**
+	 * @return the codeProbleme
+	 */
+	public String getCodeProbleme() {
+		return codeProbleme;
+	}
+
+	/**
+	 * @param codeProbleme the codeProbleme to set
+	 */
+	public void setCodeProbleme(String codeProbleme) {
+		this.codeProbleme = codeProbleme;
 	}
 
 	/**
@@ -276,6 +293,40 @@ public class Correction {
 	 */
 	public void setVersions(List<Version> versions) {
 		this.versions = versions;
+	}
+	
+	public String getTypeProbleme(String code) throws Exception {
+		String type="";
+		if(code != null && !code.isEmpty()) {
+			if (code.contains("PAMCO")) {
+				type="Jira";
+			} else {
+				try {
+					int test = Integer.parseInt(code);
+					type = "Sesame";
+				} catch(NumberFormatException e) {
+					throw new Exception ("code invalide");
+				}
+			}
+		}
+		return type;
+	}
+	
+	public String getLienProbleme(String code) throws Exception {
+		String lien="";
+		if(code != null && !code.isEmpty()) {
+			if (code.contains("PAMCO")) {
+				lien="https://sirhmen.atlassian.net/browse/" + code;
+			} else {
+				try {
+					int test = Integer.parseInt(code);
+					lien = "http://sesam.in.ac-toulouse.fr/appli/sesam/view.php?id=" + code;
+				} catch(NumberFormatException e) {
+					throw new Exception ("code invalide");
+				}
+			}
+		}
+		return lien;
 	}
 
 }

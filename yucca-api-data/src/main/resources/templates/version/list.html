@@ -1,70 +1,25 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Yucca - Liste des versions</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-
-    <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"
-          rel="stylesheet" media="screen"/>
-          
-    <link href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"
-          rel="stylesheet" media="screen"/>
-          
-          
-    <link th:href="@{/css/style.css}" rel="stylesheet" media="screen"/>
-
+<head th:insert="fragments/general :: headerfiles (titre='Yucca - Liste des Versions')">
 </head>
 <body>
-<!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="#">Liste des versions</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Accueil
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">A Propos</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Services</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+	<!-- Navigation -->    
+    <div th:replace="fragments/general :: navigation (titre='Liste des Versions')"></div>
 	<div class="container-fluid" style="margin-top: 15px;">
 		<div class="row">
 
-        <div class="col-lg-2">
-
-          <h1 class="my-4">Yucca</h1>
-          <div class="list-group">
-            <a th:href="${'/programme/list'}" class="list-group-item">Consulter les programmes</a>
-            <a th:href="${'/version/list'}" class="list-group-item">Consulter les versions</a>
-            <a th:href="${'/version/list'}" class="list-group-item">Consulter les versions</a>
-          </div>
-          
-        </div>
+        <div th:replace="/fragments/general :: menu"></div>
         
         <div class="col-lg-9">
+       		  <h1>Liste des Versions</h1>
               <div th:if="${not #lists.isEmpty(versions)}">
 			        <table id="datatable" class="table table-striped">
 			        	<thead>
 			            <tr>
 			                <th>ID</th>
 			                <th>Titre</th>
-			                <th>Etat</th>
-			                <th>Date Creation</th>
+			                <th>État</th>
+			                <th>Date Création</th>
 			                <th></th>
 			                <th></th>
 			                <th></th>
@@ -76,9 +31,9 @@
 				                <td th:text="${version.libelle}"></td>
 				                <td th:text="${version.etat}"></td>
 				                <td th:text="${#dates.format(version.dateCreation, 'dd/MM/yyyy - HH:mm')}" ></td>	
-				                <td><a th:href="${'/version/show/' + version.id}"> Voir </a> </td>
-				                <td><a th:href="${'/version/edit/' + version.id}">Edit</a> </td>
-								<td><a th:href="${'/version/delete/' + version.id}">Delete</a> </td>			               
+				                <td><a th:href="${'/version/show/' + version.id}"><i class="fas fa-eye"></i></a> </td>
+				                <td><a th:href="${'/version/edit/' + version.id}"><i class="fas fa-edit"></i></a> </td>
+								<td><a th:href="${'/version/delete/' + version.id}"><i class="fas fa-trash-alt"></i></a> </td>			               
 				            </tr>
 			            </tbody>
 			        </table>
@@ -90,10 +45,6 @@
         </div>
         
         </div>
-      <!-- /.row -->
-
-    </div>
-    <!-- /.container -->
 	
 	 <!-- Footer -->
     <footer class="py-5 bg-dark">

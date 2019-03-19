@@ -14,7 +14,7 @@ public class ProgrammeForm {
 	private Long id;
 	private String nom;
 	private String commentaire;
-	private char temporaire;
+	private char temporaire=' ';
 	private Date dateCreation;
 	private String utilisateurCreation;
 	

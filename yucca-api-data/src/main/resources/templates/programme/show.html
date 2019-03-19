@@ -1,59 +1,57 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Yucca - Programme</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-
-    <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"
-          rel="stylesheet" media="screen"/>
-
-    <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
-
-</head>
+<head th:insert="fragments/general :: headerfiles (titre='Yucca - Consulter un Programme')">
 <body>
-<div class="container">
-
-    <div class="row">
-        <div class="col-sm-6">
-            <h2>Programme</h2>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-8">
-            <form class="form-horizontal">
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Programme Id:</label>
-                    <div class="col-sm-10">
-                        <p class="form-control-static" th:text="${programme.id}">Programme Id</p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Nom:</label>
-                    <div class="col-sm-10">
-                        <p class="form-control-static" th:text="${programme.nom}">Nom</p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Commentaire:</label>
-                    <div class="col-sm-10">
-                        <p class="form-control-static" th:text="${programme.commentaire}">Commentaire</p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 sm-2 control-label">Temporaire:</label>
-                    <div class="col-sm-10">
-                        <p class="form-control-static" th:text="${programme.temporaire}">Temporaire</p>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="row">
-        <div class="col-sm-3">
-            <a href="/programme/new">Nouveau Programme</a>
-        </div>
-    </div>
-    </div>
-</div>
-
+	<!-- Navigation --> 
+	<div th:replace="fragments/general :: navigation (titre='Consulter un programme')"></div>
+	
+	<div class="container-fluid" style="margin-top: 15px;">
+	 
+		<div class="row">
+			
+			<div th:replace="/fragments/general :: menu"></div>
+	
+	       <div class="col-lg-7">
+	             <form class="form-horizontal">       
+	             	<h2 class="my-4" th:text="${programme.nom}"></h2>
+	             	<br/>
+	             	<p>
+						<a th:href="${'/programme/edit/' + programme.id}" class="btn btn-default" style ="background-color: grey; color:white;"><i class="fas fa-edit"></i> Modifier</a>
+						<a th:href="${'/programme/delete/' + programme.id}" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Supprimer</a>
+	            	 </p>
+    				<div class="form-group">
+	                    <label class="col-sm-2 control-label">Programme Id:</label>
+	                    <div class="col-sm-10">
+	                        <p class="form-control-static" th:text="${programme.id}">Programme Id</p>
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label class="col-sm-2 control-label">Nom:</label>
+	                    <div class="col-sm-10">
+	                        <p class="form-control-static" th:text="${programme.nom}">Nom</p>
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label class="col-sm-2 control-label">Commentaire:</label>
+	                    <div class="col-sm-10">
+	                        <p class="form-control-static" th:text="${programme.commentaire}">Commentaire</p>
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label class="col-sm-2 sm-2 control-label">Temporaire:</label>
+	                    <div class="col-sm-10">
+	                        <p class="form-control-static" th:text="${programme.temporaire}">Temporaire</p>
+	                    </div>
+	                </div>
+	            </form>
+		        <div class="row">
+		        <div class="col-sm-3">
+		            <a href="/programme/new" class="btn btn-primary" style="margin-bottom: 10px;">Nouveau Programme</a>
+		        </div>
+	        </div>
+	        
+	    </div>
+	    </div>
+	</div>
 </body>
 </html>
