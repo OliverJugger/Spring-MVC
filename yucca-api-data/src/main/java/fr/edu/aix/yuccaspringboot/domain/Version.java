@@ -42,10 +42,10 @@ public class Version {
 	private String utilisateurCreation;
 	
 	@Column(name="UPDATED_AT")
-	private Date dateModifcation;
+	private Date dateModification;
 	
 	@Column(name="MUSER")
-	private String utilisateurModifcation;
+	private String utilisateurModification;
 	
 	@ManyToMany
 	@JoinTable(
@@ -65,20 +65,20 @@ public class Version {
 	 * @param etat
 	 * @param dateCreation
 	 * @param utilisateurCreation
-	 * @param dateModifcation
-	 * @param utilisateurModifcation
+	 * @param dateModification
+	 * @param utilisateurModification
 	 * @param corrections
 	 */
 	public Version(Long id, String libelle, char etat, Date dateCreation, String utilisateurCreation,
-			Date dateModifcation, String utilisateurModifcation, List<Correction> corrections) {
+			Date dateModification, String utilisateurModification, List<Correction> corrections) {
 		super();
 		this.id = id;
 		this.libelle = libelle;
 		this.etat = etat;
 		this.dateCreation = dateCreation;
 		this.utilisateurCreation = utilisateurCreation;
-		this.dateModifcation = dateModifcation;
-		this.utilisateurModifcation = utilisateurModifcation;
+		this.dateModification = dateModification;
+		this.utilisateurModification = utilisateurModification;
 		this.corrections = corrections;
 	}
 
@@ -155,31 +155,31 @@ public class Version {
 	}
 
 	/**
-	 * @return the dateModifcation
+	 * @return the dateModification
 	 */
-	public Date getDateModifcation() {
-		return dateModifcation;
+	public Date getDateModification() {
+		return dateModification;
 	}
 
 	/**
-	 * @param dateModifcation the dateModifcation to set
+	 * @param dateModification the dateModification to set
 	 */
-	public void setDateModifcation(Date dateModifcation) {
-		this.dateModifcation = dateModifcation;
+	public void setDateModification(Date dateModification) {
+		this.dateModification = dateModification;
 	}
 
 	/**
-	 * @return the utilisateurModifcation
+	 * @return the utilisateurModification
 	 */
 	public String getUtilisateurModifcation() {
-		return utilisateurModifcation;
+		return utilisateurModification;
 	}
 
 	/**
-	 * @param utilisateurModifcation the utilisateurModifcation to set
+	 * @param utilisateurModification the utilisateurModification to set
 	 */
-	public void setUtilisateurModifcation(String utilisateurModifcation) {
-		this.utilisateurModifcation = utilisateurModifcation;
+	public void setUtilisateurModifcation(String utilisateurModification) {
+		this.utilisateurModification = utilisateurModification;
 	}
 
 	/**

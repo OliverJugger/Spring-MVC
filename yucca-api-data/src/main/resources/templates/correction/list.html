@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:insert="fragments/general :: headerfiles (titre='Yucca - Liste des Corrections')">
+	<meta charset="UTF-8">
 </head>
 <body>
 	<!-- Navigation -->    
@@ -11,7 +12,7 @@
 		
 		<div th:replace="/fragments/general :: menu"></div>
         
-        <div class="col-lg-9">
+        <div class="col-lg-7">
         	<h1>Liste des Corrections</h1>
              <div th:if="${not #lists.isEmpty(corrections)}">
 			        <table id="datatable" class="table table-striped">
@@ -20,11 +21,11 @@
 			                <th>ID</th>
 			                <th class="col-md-1">Titre</th>
 			                <th>Code</th>
-			                <th>État</th>
+			                <th class="col-md-1">État</th>
 			                <th>Date Création</th>
-			                <th></th>
-			                <th></th>
-			                <th></th>
+			                <th class="no-sort"></th>
+			                <th class="no-sort"></th>
+			                <th class="no-sort"></th>
 			            </tr>
 			            </thead>			            
 			            <tbody>
