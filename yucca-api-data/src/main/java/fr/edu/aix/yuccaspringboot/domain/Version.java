@@ -3,7 +3,6 @@
  */
 package fr.edu.aix.yuccaspringboot.domain;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -31,7 +30,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Version {
+public class Version extends AbstractTimestampEntity {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -44,14 +43,8 @@ public class Version {
 	@Column(name="ETAT")
 	private char etat;
 	
-	@Column(name="CREATED_AT")
-	private Date dateCreation;
-	
 	@Column(name="CUSER")
 	private String utilisateurCreation;
-	
-	@Column(name="UPDATED_AT")
-	private Date dateModification;
 	
 	@Column(name="MUSER")
 	private String utilisateurModification;

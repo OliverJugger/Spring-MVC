@@ -18,7 +18,7 @@
 			        	<thead>
 			            <tr>
 			                <th>ID</th>
-			                <th>Titre</th>
+			                <th>Libelle</th>
 			                <th>État</th>
 			                <th>Date Création</th>
 			                <th class="no-sort"></th>
@@ -30,7 +30,11 @@
 				            <tr th:each="version : ${versions}">
 				                <td th:text="${version.id}"></td>
 				                <td th:text="${version.libelle}"></td>
-				                <td th:text="${version.etat}"></td>
+				                <td th:switch="${version.etat}">
+								    <div th:case="'I'" class="etat rounded ouverte text-center">Inactive</div>
+								    <div th:case="'A'" class="etat rounded fermee text-center">Active</div>
+								    <div th:case="*" th:text="${versionn.etat}"></div>
+								</td>
 				                <td th:text="${#dates.format(version.dateCreation, 'dd/MM/yyyy - HH:mm')}" ></td>	
 				                <td><a th:href="${'/version/show/' + version.id}"><i class="fas fa-eye"></i></a> </td>
 				                <td><a th:href="${'/version/edit/' + version.id}"><i class="fas fa-edit"></i></a> </td>

@@ -3,7 +3,7 @@
  */
 package fr.edu.aix.yuccaspringboot.form;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +20,7 @@ public class ProgrammeForm {
 	private String nom;
 	private String commentaire;
 	private char temporaire;
-	private Date dateCreation;
+	private Calendar dateCreation;
 	private String utilisateurCreation;
 	
 }

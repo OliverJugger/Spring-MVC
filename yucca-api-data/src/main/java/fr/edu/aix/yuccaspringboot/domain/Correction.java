@@ -3,7 +3,6 @@
  */
 package fr.edu.aix.yuccaspringboot.domain;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -31,7 +30,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Correction {
+public class Correction extends AbstractTimestampEntity{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -62,14 +61,8 @@ public class Correction {
 	@Column(name="ID_RESPONSABLE", nullable=false)
 	private Long responsable;
 	
-	@Column(name="CREATED_AT", nullable=false, updatable=false)
-	private Date dateCreation;
-	
 	@Column(name="CUSER", nullable=false, updatable=false)
 	private String utilisateurCreation;
-	
-	@Column(name="UPDATED_AT", nullable=false)
-	private Date dateModification;
 	
 	@Column(name="MUSER", nullable=false)
 	private String utilisateurModification;	

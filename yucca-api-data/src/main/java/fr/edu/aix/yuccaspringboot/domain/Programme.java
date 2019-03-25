@@ -3,11 +3,13 @@
  */
 package fr.edu.aix.yuccaspringboot.domain;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,7 +34,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Programme {
+public class Programme extends AbstractTimestampEntity{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -54,15 +56,8 @@ public class Programme {
 	@Column(name="ID_DOSSIER", nullable=false)
 	private Long idDossier;
 	
-	@Column(name="CREATED_AT", nullable=false, updatable=false)
-	private Date dateCreation;
-	
 	@Column(name="CUSER", nullable=false, updatable=false)
 	private String utilisateurCreation;
-	
-	@Version
-	@Column(name="UPDATED_AT", nullable=false)
-	private Date dateModification;
 	
 	@Column(name="MUSER", nullable=false)
 	private String utilisateurModification;	

@@ -1,6 +1,6 @@
 package fr.edu.aix.yuccaspringboot.controller;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,19 +46,19 @@ public class CorrectionController {
         return "/correction/list";
     }
 	
-	 @RequestMapping("/new")
-	    public String newProgramme(Model model){
-		 	model.addAttribute("correctionForm", new CorrectionForm());
-	        return "correction/correctionForm";
-	    }
+	@RequestMapping("/new")
+    public String newProgramme(Model model){
+	 	model.addAttribute("correctionForm", new CorrectionForm());
+        return "correction/correctionForm";
+    }
 	
-	 @RequestMapping("/show/{id}")
+	@RequestMapping("/show/{id}")
     public String getProgramme(@PathVariable(value="id", required = true) Long id, Model model){
         model.addAttribute("correction", correctionService.getCorrection(id));
         return "correction/show";
     }   
 	 
-	 @RequestMapping("/edit/{id}")
+	@RequestMapping("/edit/{id}")
     public String edit(@PathVariable Long id, Model model){
         Correction correction = correctionService.getCorrection(id);
         CorrectionForm correctionForm = correctionToCorrectionForm.convert(correction);
@@ -66,7 +66,7 @@ public class CorrectionController {
         return "correction/correctionForm";
     }
 	 
-	 @RequestMapping("/delete/{id}")
+	@RequestMapping("/delete/{id}")
     public String deleteCorrection(@PathVariable Long id) {
 		 correctionService.deleteLiens(id);
 		 correctionService.deleteCorrection(id);
@@ -76,10 +76,10 @@ public class CorrectionController {
 	 @RequestMapping(value="/add",method=RequestMethod.POST)
 	    public String addCorrection(Correction correction, Model model) {
 			 correction.setEtat('O');
-			 correction.setDateCreation(new Date());
+			 correction.setDateCreation(Calendar.getInstance());
 			 correction.setUtilisateurCreation("YUCCA-BACK");
 			 correction.setUtilisateurModification("YUCCA-BACK");
-			 correction.setDateModification(new Date());
+			 correction.setDateModification(Calendar.getInstance());
 			 correction.setUtilisateurModification("YUCCA-BACK");
 			 correction.setApplication(new Long(30));
 			 correction.setResponsable(new Long(50));

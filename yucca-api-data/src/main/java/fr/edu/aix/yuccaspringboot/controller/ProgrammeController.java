@@ -1,6 +1,6 @@
 package fr.edu.aix.yuccaspringboot.controller;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -63,7 +63,7 @@ public class ProgrammeController {
     
     @RequestMapping(method=RequestMethod.POST, value="/add")
     public String addProgramme(Programme programme, Model model) {
-    	programme.setDateCreation(new Date());
+    	programme.setDateCreation(Calendar.getInstance());
     	programme.setUtilisateurCreation("YUCCA-BACK");
     	programme.setUtilisateurModification("YUCCA-BACK");
     	programme.setIdDomaine(new Long(30));

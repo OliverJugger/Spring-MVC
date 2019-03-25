@@ -63,9 +63,11 @@ public class CorrectionService {
     	programmes.clear();
     	correction.setProgrammes(programmes);
     	
+    	/*
     	List<Version> versions = correction.getVersions();
     	versions.clear();
     	correction.setVersions(versions);
+    	*/
     	
     	correctionRepository.save(correction);
     }
