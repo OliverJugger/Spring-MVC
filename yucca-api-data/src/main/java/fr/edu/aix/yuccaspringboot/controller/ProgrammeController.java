@@ -73,7 +73,7 @@ public class ProgrammeController {
     }
     
     @RequestMapping("/new")
-    public String newProduct(Model model){
+    public String newProgramme(Model model){
         model.addAttribute("programmeForm", new ProgrammeForm());
         return "programme/programmeForm";
     }

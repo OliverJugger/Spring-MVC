@@ -29,7 +29,17 @@ public class ProgrammeService {
     }
     
     public void addProgramme(Programme programme) {
-    	programmeRepository.save(programme);
+    	if(programme.getId() != null) {
+    		/* le programme n est pas une entity qu il connait, il faut passer par findbyid pour pouvoir mettre a jour */
+	    	Programme programmeToUpdate = programmeRepository.findById(programme.getId()).get();
+	    	programmeToUpdate.setNom(programme.getNom());
+	    	programmeToUpdate.setCommentaire(programme.getCommentaire());
+	    	programmeToUpdate.setTemporaire(programme.getTemporaire());
+	    	programmeRepository.save(programmeToUpdate);
+    	}
+    	else {
+        	programmeRepository.save(programme);
+    	}
     }
 
     public void updateProgramme(Programme programme) {

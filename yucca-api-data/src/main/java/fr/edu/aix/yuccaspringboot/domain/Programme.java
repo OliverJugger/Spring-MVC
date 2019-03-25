@@ -17,12 +17,21 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 /**
  * @author omignot
  *
  */
 @Entity
 @Table(name="PROGRAMME")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class Programme {
 	
 	@Id
@@ -65,194 +74,4 @@ public class Programme {
 			inverseJoinColumns=@JoinColumn(name="ID_CORRECTION", referencedColumnName = "ID")
 	)
 	private List<Correction> corrections;
-	
-	public Programme() {
-	}
-
-	/**
-	 * @param id
-	 * @param nom
-	 * @param commentaire
-	 * @param temporaire
-	 * @param idDomaine
-	 * @param idDossier
-	 * @param dateCreation
-	 * @param utilisateurCreation
-	 * @param dateModification
-	 * @param utilisateurModification
-	 * @param corrections
-	 */
-	public Programme(Long id, String nom, String commentaire, char temporaire, Long idDomaine, Long idDossier,
-			Date dateCreation, String utilisateurCreation, Date dateModification, String utilisateurModification,
-			List<Correction> corrections) {
-		super();
-		this.id = id;
-		this.nom = nom;
-		this.commentaire = commentaire;
-		this.temporaire = temporaire;
-		this.idDomaine = idDomaine;
-		this.idDossier = idDossier;
-		this.dateCreation = dateCreation;
-		this.utilisateurCreation = utilisateurCreation;
-		this.dateModification = dateModification;
-		this.utilisateurModification = utilisateurModification;
-		this.corrections = corrections;
-	}
-
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	/**
-	 * @return the nom
-	 */
-	public String getNom() {
-		return nom;
-	}
-
-	/**
-	 * @param nom the nom to set
-	 */
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
-	/**
-	 * @return the commentaire
-	 */
-	public String getCommentaire() {
-		return commentaire;
-	}
-
-	/**
-	 * @param commentaire the commentaire to set
-	 */
-	public void setCommentaire(String commentaire) {
-		this.commentaire = commentaire;
-	}
-
-	/**
-	 * @return the temporaire
-	 */
-	public char getTemporaire() {
-		return temporaire;
-	}
-
-	/**
-	 * @param temporaire the temporaire to set
-	 */
-	public void setTemporaire(char temporaire) {
-		this.temporaire = temporaire;
-	}
-
-	/**
-	 * @return the idDomaine
-	 */
-	public Long getIdDomaine() {
-		return idDomaine;
-	}
-
-	/**
-	 * @param idDomaine the idDomaine to set
-	 */
-	public void setIdDomaine(Long idDomaine) {
-		this.idDomaine = idDomaine;
-	}
-
-	/**
-	 * @return the idDossier
-	 */
-	public Long getIdDossier() {
-		return idDossier;
-	}
-
-	/**
-	 * @param idDossier the idDossier to set
-	 */
-	public void setIdDossier(Long idDossier) {
-		this.idDossier = idDossier;
-	}
-
-	/**
-	 * @return the dateCreation
-	 */
-	public Date getDateCreation() {
-		return dateCreation;
-	}
-
-	/**
-	 * @param dateCreation the dateCreation to set
-	 */
-	public void setDateCreation(Date dateCreation) {
-		this.dateCreation = dateCreation;
-	}
-
-	/**
-	 * @return the utilisateurCreation
-	 */
-	public String getUtilisateurCreation() {
-		return utilisateurCreation;
-	}
-
-	/**
-	 * @param utilisateurCreation the utilisateurCreation to set
-	 */
-	public void setUtilisateurCreation(String utilisateurCreation) {
-		this.utilisateurCreation = utilisateurCreation;
-	}
-
-	/**
-	 * @return the dateModification
-	 */
-	public Date getDateModification() {
-		return dateModification;
-	}
-
-	/**
-	 * @param dateModification the dateModification to set
-	 */
-	public void setDateModification(Date dateModification) {
-		this.dateModification = dateModification;
-	}
-
-	/**
-	 * @return the utilisateurModification
-	 */
-	public String getUtilisateurModification() {
-		return utilisateurModification;
-	}
-
-	/**
-	 * @param utilisateurModification the utilisateurModification to set
-	 */
-	public void setUtilisateurModification(String utilisateurModification) {
-		this.utilisateurModification = utilisateurModification;
-	}
-
-	/**
-	 * @return the corrections
-	 */
-	public List<Correction> getCorrections() {
-		return corrections;
-	}
-
-	/**
-	 * @param corrections the corrections to set
-	 */
-	public void setCorrections(List<Correction> corrections) {
-		this.corrections = corrections;
-	}
-	
-	
-
 }

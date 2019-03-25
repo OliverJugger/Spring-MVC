@@ -14,13 +14,20 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class ProgrammeForm {
+public class CorrectionForm {
 
 	private Long id;
-	private String nom;
+	private String titre;
+	private String codeProbleme;
+	private String probleme;
+	private String solution;
 	private String commentaire;
-	private char temporaire;
+	private Long application;
+	private Long responsable;
+	private char etat=' ';
 	private Date dateCreation;
 	private String utilisateurCreation;
+	private Date dateModification;
+	private String utilisateurModification;
 	
 }

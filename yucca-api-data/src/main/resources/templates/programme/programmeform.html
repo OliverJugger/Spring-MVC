@@ -50,10 +50,12 @@
 		       </div>
 		            
 		       <div class="form-group" th:class="${#fields.hasErrors('temporaire')} ? 'form-group has-error' : 'form-group'">
-		           <label class="col-sm-2 control-label">Temporaire:</label>
+		           <label for="temporaire" class="col-sm-2 control-label">Temporaire:</label>
 		           <div class="col-sm-10">
-		               <input type="text" maxlength="1" class="form-control" th:field="*{temporaire}" th:errorclass="has-error"/>
-		
+						<select class="form-control" th:field="*{temporaire}" th:errorclass="has-error" id="temporaire">
+						  <option th:value='N'>N</option>
+						  <option th:value='O'>O</option>
+						</select>
 		               <span class="help-block">
 		                  <ul>
 		                      <li th:each="err : ${#fields.errors('temporaire')}" th:text="${err}" />
@@ -64,7 +66,7 @@
 		       
 		       <div class="row">
 			        <div class="col-sm-3">
-			            <a href="/programme/new" class="btn btn-primary" style="margin-bottom: 10px;">Valider</a>
+			            <button type="submit" class="btn btn-primary" style="margin-bottom: 10px;">Valider</button>
 			        </div>
 		        </div>
 		       

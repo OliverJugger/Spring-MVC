@@ -37,7 +37,20 @@ public class CorrectionService {
     }
     
     public void addCorrection(Correction correction) {
-    	correctionRepository.save(correction);
+    	if(correction.getId() != null) {
+    		/* la correction n est pas une entity qu il connait, il faut passer par findbyid pour pouvoir mettre a jour */
+    		Correction correctionToUpdate = correctionRepository.findById(correction.getId()).get();
+    		correctionToUpdate.setTitre(correction.getTitre());
+    		correctionToUpdate.setCodeProbleme(correction.getCodeProbleme());
+    		correctionToUpdate.setProbleme(correction.getProbleme());
+    		correctionToUpdate.setSolution(correction.getSolution());
+    		correctionToUpdate.setCommentaire(correction.getCommentaire());
+    		correctionToUpdate.setEtat(correction.getEtat());
+    		correctionRepository.save(correctionToUpdate);
+    	}
+    	else {
+    		correctionRepository.save(correction);
+    	}
     }
 
     public void updateCorrection(Correction correction) {

@@ -3,7 +3,7 @@
  */
 package fr.edu.aix.yuccaspringboot.domain;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -16,12 +16,21 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 /**
  * @author omignot
  *
  */
 @Entity
 @Table(name="CORRECTION")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class Correction {
 	
 	@Id
@@ -44,19 +53,25 @@ public class Correction {
 	@Column(name="COMMENTAIRE")
 	private String commentaire;
 	
-	@Column(name="ETAT")
+	@Column(name="ETAT", nullable=false)
 	private char etat;
 	
-	@Column(name="CREATED_AT")
+	@Column(name="ID_APPLICATION", nullable=false)
+	private Long application;
+	
+	@Column(name="ID_RESPONSABLE", nullable=false)
+	private Long responsable;
+	
+	@Column(name="CREATED_AT", nullable=false, updatable=false)
 	private Date dateCreation;
 	
-	@Column(name="CUSER")
+	@Column(name="CUSER", nullable=false, updatable=false)
 	private String utilisateurCreation;
 	
-	@Column(name="UPDATED_AT")
+	@Column(name="UPDATED_AT", nullable=false)
 	private Date dateModification;
 	
-	@Column(name="MUSER")
+	@Column(name="MUSER", nullable=false)
 	private String utilisateurModification;	
 	
 	@ManyToMany
@@ -74,226 +89,6 @@ public class Correction {
 			inverseJoinColumns=@JoinColumn(name="ID_VERSION", referencedColumnName = "ID")
 	)
 	private List<Version> versions;
-	
-	public Correction() {
-		
-	}
-
-	/**
-	 * @param id
-	 * @param titre
-	 * @param codeProbleme
-	 * @param probleme
-	 * @param solution
-	 * @param commentaire
-	 * @param etat
-	 * @param dateCreation
-	 * @param utilisateurCreation
-	 * @param dateModification
-	 * @param utilisateurModification
-	 * @param programmes
-	 * @param versions
-	 */
-	public Correction(Long id, String titre, String codeProbleme, String probleme, String solution, String commentaire,
-			char etat, Date dateCreation, String utilisateurCreation, Date dateModification,
-			String utilisateurModification, List<Programme> programmes, List<Version> versions) {
-		super();
-		this.id = id;
-		this.titre = titre;
-		this.codeProbleme = codeProbleme;
-		this.probleme = probleme;
-		this.solution = solution;
-		this.commentaire = commentaire;
-		this.etat = etat;
-		this.dateCreation = dateCreation;
-		this.utilisateurCreation = utilisateurCreation;
-		this.dateModification = dateModification;
-		this.utilisateurModification = utilisateurModification;
-		this.programmes = programmes;
-		this.versions = versions;
-	}
-
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	/**
-	 * @return the titre
-	 */
-	public String getTitre() {
-		return titre;
-	}
-
-	/**
-	 * @param titre the titre to set
-	 */
-	public void setTitre(String titre) {
-		this.titre = titre;
-	}
-
-	/**
-	 * @return the codeProbleme
-	 */
-	public String getCodeProbleme() {
-		return codeProbleme;
-	}
-
-	/**
-	 * @param codeProbleme the codeProbleme to set
-	 */
-	public void setCodeProbleme(String codeProbleme) {
-		this.codeProbleme = codeProbleme;
-	}
-
-	/**
-	 * @return the probleme
-	 */
-	public String getProbleme() {
-		return probleme;
-	}
-
-	/**
-	 * @param probleme the probleme to set
-	 */
-	public void setProbleme(String probleme) {
-		this.probleme = probleme;
-	}
-
-	/**
-	 * @return the solution
-	 */
-	public String getSolution() {
-		return solution;
-	}
-
-	/**
-	 * @param solution the solution to set
-	 */
-	public void setSolution(String solution) {
-		this.solution = solution;
-	}
-
-	/**
-	 * @return the commentaire
-	 */
-	public String getCommentaire() {
-		return commentaire;
-	}
-
-	/**
-	 * @param commentaire the commentaire to set
-	 */
-	public void setCommentaire(String commentaire) {
-		this.commentaire = commentaire;
-	}
-
-	/**
-	 * @return the etat
-	 */
-	public char getEtat() {
-		return etat;
-	}
-
-	/**
-	 * @param etat the etat to set
-	 */
-	public void setEtat(char etat) {
-		this.etat = etat;
-	}
-
-	/**
-	 * @return the dateCreation
-	 */
-	public Date getDateCreation() {
-		return dateCreation;
-	}
-
-	/**
-	 * @param dateCreation the dateCreation to set
-	 */
-	public void setDateCreation(Date dateCreation) {
-		this.dateCreation = dateCreation;
-	}
-
-	/**
-	 * @return the utilisateurCreation
-	 */
-	public String getUtilisateurCreation() {
-		return utilisateurCreation;
-	}
-
-	/**
-	 * @param utilisateurCreation the utilisateurCreation to set
-	 */
-	public void setUtilisateurCreation(String utilisateurCreation) {
-		this.utilisateurCreation = utilisateurCreation;
-	}
-
-	/**
-	 * @return the dateModifcation
-	 */
-	public Date getDateModification() {
-		return dateModification;
-	}
-
-	/**
-	 * @param dateModifcation the dateModifcation to set
-	 */
-	public void setDateModifcation(Date dateModification) {
-		this.dateModification = dateModification;
-	}
-
-	/**
-	 * @return the utilisateurModifcation
-	 */
-	public String getUtilisateurModification() {
-		return utilisateurModification;
-	}
-
-	/**
-	 * @param utilisateurModifcation the utilisateurModifcation to set
-	 */
-	public void setUtilisateurModification(String utilisateurModification) {
-		this.utilisateurModification = utilisateurModification;
-	}
-
-	/**
-	 * @return the programmes
-	 */
-	public List<Programme> getProgrammes() {
-		return programmes;
-	}
-
-	/**
-	 * @param programmes the programmes to set
-	 */
-	public void setProgrammes(List<Programme> programmes) {
-		this.programmes = programmes;
-	}
-
-	/**
-	 * @return the versions
-	 */
-	public List<Version> getVersions() {
-		return versions;
-	}
-
-	/**
-	 * @param versions the versions to set
-	 */
-	public void setVersions(List<Version> versions) {
-		this.versions = versions;
-	}
 	
 	public String getTypeProbleme(String code) throws Exception {
 		String type="";
