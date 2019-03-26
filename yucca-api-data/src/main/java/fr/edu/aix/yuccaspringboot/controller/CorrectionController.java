@@ -66,24 +66,30 @@ public class CorrectionController {
         return "correction/correctionForm";
     }
 	 
-	@RequestMapping("/delete/{id}")
-    public String deleteCorrection(@PathVariable Long id) {
-		 correctionService.deleteLiens(id);
-		 correctionService.deleteCorrection(id);
-    	return "redirect:/correction/list";
+	@RequestMapping(value="/add",method=RequestMethod.POST)
+    public String addCorrection(Correction correction, Model model) {
+		 correction.setEtat('O');
+		 correction.setDateCreation(Calendar.getInstance());
+		 correction.setUtilisateurCreation("YUCCA-BACK");
+		 correction.setUtilisateurModification("YUCCA-BACK");
+		 correction.setDateModification(Calendar.getInstance());
+		 correction.setUtilisateurModification("YUCCA-BACK");
+		 correction.setApplication(new Long(30));
+		 correction.setResponsable(new Long(50));
+		 correctionService.addCorrection(correction);
+        return "redirect:/correction/list";
     }
-	 
-	 @RequestMapping(value="/add",method=RequestMethod.POST)
-	    public String addCorrection(Correction correction, Model model) {
-			 correction.setEtat('O');
-			 correction.setDateCreation(Calendar.getInstance());
-			 correction.setUtilisateurCreation("YUCCA-BACK");
-			 correction.setUtilisateurModification("YUCCA-BACK");
-			 correction.setDateModification(Calendar.getInstance());
-			 correction.setUtilisateurModification("YUCCA-BACK");
-			 correction.setApplication(new Long(30));
-			 correction.setResponsable(new Long(50));
-			 correctionService.addCorrection(correction);
-	        return "redirect:/correction/list";
-	    }
+	
+	/**
+	 *  Fonction de suppression de liaison dans table LIEN_CORRECTION_PROGRAMME
+	 * @param idCorrection
+	 * @param idProgramme
+	 * @param model
+	 * @return la page de la correction dont la liaison au programme vient d'être supprimé
+	 */
+	@RequestMapping("/{idCorrection}/programme/delete/{idProgramme}")
+    public String deleteCorrection(@PathVariable(value="idCorrection") Long idCorrection, @PathVariable(value="idProgramme") Long idProgramme, Model model) {
+		 correctionService.deleteProgrammeCorrection(idCorrection, idProgramme);
+    	return "redirect:/correction/show/" + idCorrection;
+    }
 }

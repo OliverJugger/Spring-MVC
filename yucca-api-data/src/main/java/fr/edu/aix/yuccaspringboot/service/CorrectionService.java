@@ -75,4 +75,21 @@ public class CorrectionService {
     public void deleteCorrection(Long id) {
     	correctionRepository.deleteById(id);
     }
+    
+    public void deleteProgrammeCorrection(Long idCorrection, Long idProgramme) {
+    	Correction correction = correctionRepository.findById(idCorrection).get();
+    	List<Programme> programmes = correction.getProgrammes();
+    	boolean found = false;
+    	int size = programmes.size();
+    	int i = 0;
+    	while (i<size || !found) {
+    		if(programmes.get(i).getId() == idProgramme) {
+    			programmes.remove(programmes.get(i));
+    			found = true;
+    		}
+    		i++;
+    	}    	
+    	correction.setProgrammes(programmes);
+    	correctionRepository.save(correction);
+    }
 }

@@ -97,4 +97,17 @@ public class VersionController {
 		 versionService.deleteVersion(id);
     	return "redirect:/version/list";
     }
+	 
+	 /**
+	 *  Fonction de suppression de liaison dans table LIEN_CORRECTION_VERSION
+	 * @param idCorrection
+	 * @param idVersion
+	 * @param model
+	 * @return la page de la version dont la liaison a la correction vient d'être supprimé
+	 */
+	@RequestMapping("/{idVersion}/correction/delete/{idCorrection}")
+    public String deleteCorrection(@PathVariable(value="idVersion") Long idVersion, @PathVariable(value="idCorrection") Long idCorrection, Model model) {
+		 versionService.deleteVersionCorrection(idVersion, idCorrection);
+    	return "redirect:/version/show/" + idVersion;
+    }
 }

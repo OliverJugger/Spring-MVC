@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fr.edu.aix.yuccaspringboot.domain.Correction;
+import fr.edu.aix.yuccaspringboot.domain.Programme;
 import fr.edu.aix.yuccaspringboot.domain.Version;
 import fr.edu.aix.yuccaspringboot.repository.VersionRepository;
 
@@ -54,6 +55,23 @@ public class VersionService {
 
     public void deleteVersion(Long id) {
     	versionRepository.deleteById(id);
+    }
+
+	public void deleteVersionCorrection(Long idVersion, Long idCorrection) {
+		Version version = versionRepository.findById(idVersion).get();
+    	List<Correction> corrections = version.getCorrections();
+    	boolean found = false;
+    	int size = corrections.size();
+    	int i = 0;
+    	while (i<size || !found) {
+    		if(corrections.get(i).getId() == idCorrection) {
+    			corrections.remove(corrections.get(i));
+    			found = true;
+    		}
+    		i++;
+    	}    	
+    	version.setCorrections(corrections);
+    	versionRepository.save(version);
     }
 
 }

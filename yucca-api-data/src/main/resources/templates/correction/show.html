@@ -56,6 +56,12 @@
 					  <label for="probleme"><b>Problème:</b></label>
 					  <textarea class="form-control" rows="5" id="probleme" th:text="${correction.probleme}"></textarea>
 					</div>
+					<label class="btn btn-default btn-file">
+					    <div class="btn btn-primary">
+					    	Ajouter un fichier 
+					    	<input type="file" style="display: none;">
+					    </div>
+					</label>
 					<div class="form-group">
 					  <label for="solution"><b>Solution:</b></label>
 					  <textarea class="form-control" rows="5" id="solution" th:text="${correction.solution}"></textarea>
@@ -80,7 +86,7 @@
 					                <td th:text="${programme.nom}"></td>
 					                <td><a th:href="${'/programme/show/' + programme.id}"><i class="fas fa-eye"></i></a></td>
 					                <td><a th:href="${'/programme/edit/' + programme.id}"><i class="fas fa-edit"></i></a></td>
-									<td><a th:href="${'/programme/delete/' + programme.id}"><i class="fas fa-trash-alt"></i></a> </td>			               
+									<td><a th:href="${'/correction/' + correction.id + '/programme/delete/' + programme.id}"><i class="fas fa-trash-alt"></i></a> </td>			               
 					            </tr>
 				            </tbody>
 				        </table>
