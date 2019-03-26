@@ -11,12 +11,16 @@ import fr.edu.aix.yuccaspringboot.domain.Correction;
 import fr.edu.aix.yuccaspringboot.domain.Programme;
 import fr.edu.aix.yuccaspringboot.domain.Version;
 import fr.edu.aix.yuccaspringboot.repository.CorrectionRepository;
+import fr.edu.aix.yuccaspringboot.repository.ProgrammeRepository;
 
 @Service
 public class CorrectionService {
 
 	@Autowired
 	public CorrectionRepository correctionRepository;
+	
+	@Autowired
+	public ProgrammeRepository programmeRepository;
 	
 	public List<Correction> getAllCorrections(){
 		List<Correction> corrections = new ArrayList<>();
@@ -92,4 +96,13 @@ public class CorrectionService {
     	correction.setProgrammes(programmes);
     	correctionRepository.save(correction);
     }
+
+	public void addProgrammeCorrection(Long idCorrection, Long idProgramme) {
+		Correction correction = correctionRepository.findById(idCorrection).get();
+    	List<Programme> programmes = correction.getProgrammes();
+    	Programme programme = programmeRepository.findById(idProgramme).get();
+    	programmes.add(programme);
+    	correction.setProgrammes(programmes);
+    	correctionRepository.save(correction);
+	}
 }

@@ -13,6 +13,7 @@ import fr.edu.aix.yuccaspringboot.domain.Correction;
 import fr.edu.aix.yuccaspringboot.form.CorrectionForm;
 import fr.edu.aix.yuccaspringboot.form.CorrectionToCorrectionForm;
 import fr.edu.aix.yuccaspringboot.service.CorrectionService;
+import fr.edu.aix.yuccaspringboot.service.ProgrammeService;
 
 /**
  * @author omignot
@@ -23,6 +24,7 @@ import fr.edu.aix.yuccaspringboot.service.CorrectionService;
 public class CorrectionController {
 	
 	private CorrectionService correctionService;	
+	private ProgrammeService programmeService;
 	private CorrectionToCorrectionForm correctionToCorrectionForm;
 	
 	@Autowired
@@ -33,6 +35,11 @@ public class CorrectionController {
 	@Autowired
     public void setCorrectionService(CorrectionService correctionService) {
         this.correctionService = correctionService;
+	}
+	
+	@Autowired
+    public void setProgrammeService(ProgrammeService programmeService) {
+        this.programmeService = programmeService;
 	}
 	
 	@RequestMapping("/")
@@ -55,6 +62,7 @@ public class CorrectionController {
 	@RequestMapping("/show/{id}")
     public String getProgramme(@PathVariable(value="id", required = true) Long id, Model model){
         model.addAttribute("correction", correctionService.getCorrection(id));
+        model.addAttribute("programmes", programmeService.getAllProgrammes());
         return "correction/show";
     }   
 	 
@@ -88,8 +96,21 @@ public class CorrectionController {
 	 * @return la page de la correction dont la liaison au programme vient d'être supprimé
 	 */
 	@RequestMapping("/{idCorrection}/programme/delete/{idProgramme}")
-    public String deleteCorrection(@PathVariable(value="idCorrection") Long idCorrection, @PathVariable(value="idProgramme") Long idProgramme, Model model) {
+    public String deleteProgrammeCorrection(@PathVariable(value="idCorrection") Long idCorrection, @PathVariable(value="idProgramme") Long idProgramme, Model model) {
 		 correctionService.deleteProgrammeCorrection(idCorrection, idProgramme);
+    	return "redirect:/correction/show/" + idCorrection;
+    }
+	
+	/**
+	 *  Fonction d'ajout de liaison dans table LIEN_CORRECTION_PROGRAMME
+	 * @param idCorrection
+	 * @param idProgramme
+	 * @param model
+	 * @return la page de la correction dont la liaison au programme vient d'être créée
+	 */
+	@RequestMapping("/{idCorrection}/programme/add/{idProgramme}")
+    public String addProgrammeCorrection(@PathVariable(value="idCorrection") Long idCorrection, @PathVariable(value="idProgramme") Long idProgramme, Model model) {
+		 correctionService.addProgrammeCorrection(idCorrection, idProgramme);
     	return "redirect:/correction/show/" + idCorrection;
     }
 }
