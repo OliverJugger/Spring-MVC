@@ -11,7 +11,7 @@
 
         <div th:replace="/fragments/general :: menu"></div>
         
-        <div class="col-lg-9">
+        <div class="col-lg-7">
        		  <h1>Liste des Versions</h1>
               <div th:if="${not #lists.isEmpty(versions)}">
 			        <table id="datatable" class="table table-striped">
@@ -52,12 +52,8 @@
         </div>
 	
 	 <!-- Footer -->
-    <footer class="py-5 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Yucca 2019</p>
-      </div>
-      <!-- /.container -->
-    </footer>
+    <div th:replace="/fragments/general :: footer"></div>
+	<div th:replace="/fragments/general :: footerfiles"></div>
 
 </body>
 <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>

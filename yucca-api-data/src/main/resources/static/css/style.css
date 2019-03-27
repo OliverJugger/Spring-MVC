@@ -1,3 +1,9 @@
+@media (min-width: 965px) {
+	.top-buffer {
+		margin-top:72px; 
+	}
+}
+
 body {
   padding-top: 54px;
 }

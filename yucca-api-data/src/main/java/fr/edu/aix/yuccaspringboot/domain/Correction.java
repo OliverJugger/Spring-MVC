@@ -15,6 +15,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.springframework.util.StringUtils;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -83,14 +85,18 @@ public class Correction extends AbstractTimestampEntity{
 	)
 	private List<Version> versions;
 	
+	public Correction (String titre, String probleme) {
+		this.titre = titre;
+		this.probleme = probleme;
+	}
+	
 	public String getTypeProbleme(String code) throws Exception {
 		String type="";
-		if(code != null && !code.isEmpty()) {
+		if(StringUtils.isEmpty(code)) {
 			if (code.contains("PAMCO")) {
 				type="Jira";
 			} else {
 				try {
-					int test = Integer.parseInt(code);
 					type = "Sesame";
 				} catch(NumberFormatException e) {
 					throw new Exception ("code invalide");
@@ -102,13 +108,13 @@ public class Correction extends AbstractTimestampEntity{
 	
 	public String getLienProbleme(String code) throws Exception {
 		String lien="";
-		if(code != null && !code.isEmpty()) {
+		if(StringUtils.isEmpty(code)) {
 			if (code.contains("PAMCO")) {
 				lien="https://sirhmen.atlassian.net/browse/" + code;
 			} else {
 				try {
-					int test = Integer.parseInt(code);
-					lien = "http://sesam.in.ac-toulouse.fr/appli/sesam/view.php?id=" + code;
+					
+					lien = "http://sesam.in.ac-toulouse.fr/appli/sesam/view.php?id=" + code.toString();
 				} catch(NumberFormatException e) {
 					throw new Exception ("code invalide");
 				}

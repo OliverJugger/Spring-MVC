@@ -1,7 +1,5 @@
 package fr.edu.aix.yuccaspringboot.controller;
 
-import java.util.Calendar;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -77,14 +75,15 @@ public class CorrectionController {
 	@RequestMapping(value="/add",method=RequestMethod.POST)
     public String addCorrection(Correction correction, Model model) {
 		 correction.setEtat('O');
-		 correction.setDateCreation(Calendar.getInstance());
 		 correction.setUtilisateurCreation("YUCCA-BACK");
-		 correction.setUtilisateurModification("YUCCA-BACK");
-		 correction.setDateModification(Calendar.getInstance());
 		 correction.setUtilisateurModification("YUCCA-BACK");
 		 correction.setApplication(new Long(30));
 		 correction.setResponsable(new Long(50));
-		 correctionService.addCorrection(correction);
+		 if(correction.getId() != null) {
+			 correctionService.updateCorrection(correction);
+		 } else {
+			 correctionService.addCorrection(correction);
+		 }
         return "redirect:/correction/list";
     }
 	

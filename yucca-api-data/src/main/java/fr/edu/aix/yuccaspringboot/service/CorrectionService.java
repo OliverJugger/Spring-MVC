@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import fr.edu.aix.yuccaspringboot.domain.Correction;
 import fr.edu.aix.yuccaspringboot.domain.Programme;
-import fr.edu.aix.yuccaspringboot.domain.Version;
 import fr.edu.aix.yuccaspringboot.repository.CorrectionRepository;
 import fr.edu.aix.yuccaspringboot.repository.ProgrammeRepository;
 
@@ -41,24 +40,24 @@ public class CorrectionService {
     }
     
     public void addCorrection(Correction correction) {
-    	if(correction.getId() != null) {
-    		/* la correction n est pas une entity qu il connait, il faut passer par findbyid pour pouvoir mettre a jour */
-    		Correction correctionToUpdate = correctionRepository.findById(correction.getId()).get();
-    		correctionToUpdate.setTitre(correction.getTitre());
-    		correctionToUpdate.setCodeProbleme(correction.getCodeProbleme());
-    		correctionToUpdate.setProbleme(correction.getProbleme());
-    		correctionToUpdate.setSolution(correction.getSolution());
-    		correctionToUpdate.setCommentaire(correction.getCommentaire());
-    		correctionToUpdate.setEtat(correction.getEtat());
-    		correctionRepository.save(correctionToUpdate);
-    	}
-    	else {
-    		correctionRepository.save(correction);
-    	}
-    }
-
-    public void updateCorrection(Correction correction) {
     	correctionRepository.save(correction);
+    }
+    /**
+     * 
+     * @param correction
+     * La correction n est pas une entity 
+     * qu il connait, il faut passer par 
+     * findbyid pour pouvoir mettre a jour
+     */
+    public void updateCorrection(Correction correction) {
+		Correction correctionToUpdate = correctionRepository.findById(correction.getId()).get();
+		correctionToUpdate.setTitre(correction.getTitre());
+		correctionToUpdate.setCodeProbleme(correction.getCodeProbleme());
+		correctionToUpdate.setProbleme(correction.getProbleme());
+		correctionToUpdate.setSolution(correction.getSolution());
+		correctionToUpdate.setCommentaire(correction.getCommentaire());
+		correctionToUpdate.setEtat(correction.getEtat());
+		correctionRepository.save(correctionToUpdate);
     }
     
     public void deleteLiens(Long id) {

@@ -8,7 +8,7 @@
     <div th:replace="fragments/general :: navigation (titre='Consulter une correction')"></div>
     
 	<div class="container-fluid" style="margin-top: 15px;">
-	
+		
 		<div class="row">
 		
         	<div th:replace="/fragments/general :: menu"></div>  
@@ -42,10 +42,6 @@
 						</div>	             		
 	             	</div>
 	             	
-	             	<div class="form-group">
-	             		<p th:text="'Exportée : '+ 'Oui'"></p>
-	             	</div>
-	             	
 	             	<div class="row">
 	             		<img th:if="${correction.getTypeProbleme(correction.codeProbleme) == 'Jira'}" th:src="@{/img/jira.png}"/>
     					<img th:if="${correction.getTypeProbleme(correction.codeProbleme) == 'Sesame'}" th:src="@{/img/sesame.png}"/>
@@ -70,7 +66,7 @@
 		            	<p th:text="'Programmes rattachés :'"></p><i class="fas fa-plus-circle"></i>
 		            </div>
 		            <div th:if="${not #lists.isEmpty(correction.programmes)}">
-				        <table id="datatable" class="table table-striped">
+				        <table class="table table-striped">
 				        	<thead>
 				            <tr>
 				                <th>ID</th>
@@ -123,9 +119,38 @@
 		  <!-- /.col-lg-7 -->
 	      
 	      <div class="col-lg-3">
+	      	<div class="row top-buffer"></div>
 	         <form class="form-horizontal">
              	<h2 class="my-4"></h2>
              	<br/>
+             	<div class="form-group">
+	             		<p th:text="'Exportée : '+ 'Oui'"></p>
+	            </div>
+	            <div class="form-group">
+	            	 <div class="form-row">
+		            	<p th:text="' Embarqué dans versions :'"></p>
+		             </div>
+		            <div th:if="${not #lists.isEmpty(correction.versions)}">
+				        <table id="datatable" class="table table-striped">
+				        	<thead>
+				            <tr>
+				                <th>ID</th>
+				                <th>Nom</th>
+				                <th class="no-sort"></th>
+				                <th class="no-sort"></th>
+				            </tr>
+				            </thead>			            
+				            <tbody>
+					            <tr th:each="version : ${correction.versions}">
+					                <td th:text="${version.id}"></td>
+					                <td th:text="${version.libelle}"></td>
+					                <td><a th:href="${'/version/show/' + version.id}"><i class="fas fa-eye"></i></a></td>
+									<td><a th:href="${'/correction/' + correction.id + '/version/delete/' + version.id}"><i class="fas fa-trash-alt"></i></a> </td>			               
+					            </tr>
+				            </tbody>
+				        </table>
+				  	</div>	
+	            </div>
              	<p th:text="'Responsable : Olivier Mignot'"></p>
              	<p th:text="'Rapporteur : Olivier Mignot'"></p>
              	<p th:text="'Création : ' + ${#dates.format(correction.dateCreation, 'dd/MM/yyyy - HH:mm')}"></p>	
