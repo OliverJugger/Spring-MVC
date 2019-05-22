@@ -1,16 +1,20 @@
 package fr.edu.aix.yuccaspringboot.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fr.edu.aix.yuccaspringboot.domain.Correction;
 import fr.edu.aix.yuccaspringboot.domain.Programme;
+import fr.edu.aix.yuccaspringboot.mapper.CorrectionMapper;
 import fr.edu.aix.yuccaspringboot.repository.CorrectionRepository;
 import fr.edu.aix.yuccaspringboot.repository.ProgrammeRepository;
+import fr.edu.aix.yuccaspringboot.utils.FileUtil;
 
 @Service
 public class CorrectionService {
@@ -20,6 +24,7 @@ public class CorrectionService {
 	
 	@Autowired
 	public ProgrammeRepository programmeRepository;
+	
 	
 	public List<Correction> getAllCorrections(){
 		List<Correction> corrections = new ArrayList<>();
@@ -103,5 +108,11 @@ public class CorrectionService {
     	programmes.add(programme);
     	correction.setProgrammes(programmes);
     	correctionRepository.save(correction);
+	}
+	
+	public void exporterCorrection(Long idCorrection) throws IOException {
+		Correction correction = correctionRepository.findById(idCorrection).get();
+		FileUtil fu = new FileUtil();
+		fu.writeCorrectionToFile(correction);
 	}
 }

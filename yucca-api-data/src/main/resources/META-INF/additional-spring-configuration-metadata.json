@@ -1,0 +1,15 @@
+{
+"properties": 
+	[
+		{
+			"name": "application.export.dossier",
+			"type": "java.lang.String",
+			"description": "A description for 'application.export.folder'"
+		},
+		{
+			"name": "application.export.fichier.prefixe",
+			"type": "java.lang.String",
+			"description": "A description for 'application.export.file'"
+		}
+	]
+}

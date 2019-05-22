@@ -2,6 +2,7 @@ package fr.edu.aix.yuccaspringboot.controller;
 
 import java.util.Calendar;
 
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import fr.edu.aix.yuccaspringboot.domain.Programme;
 import fr.edu.aix.yuccaspringboot.form.ProgrammeForm;
-import fr.edu.aix.yuccaspringboot.form.ProgrammeToProgrammeForm;
+import fr.edu.aix.yuccaspringboot.mapper.ProgrammeMapper;
 import fr.edu.aix.yuccaspringboot.service.ProgrammeService;
 
 
@@ -23,13 +24,9 @@ import fr.edu.aix.yuccaspringboot.service.ProgrammeService;
 @RequestMapping("/programme")
 public class ProgrammeController {
 	
-	private ProgrammeService programmeService;
-	private ProgrammeToProgrammeForm programmeToProgrammeForm;	
-	
-	@Autowired
-	    public void setProgrammeToProgrammeForm(ProgrammeToProgrammeForm programmeToProgrammeForm) {
-	        this.programmeToProgrammeForm = programmeToProgrammeForm;
-	 }
+	private ProgrammeService programmeService;	
+
+	private	ProgrammeMapper mapper = Mappers.getMapper(ProgrammeMapper.class);
 
     @Autowired
     public void setProgrammeService(ProgrammeService programmeService) {
@@ -56,7 +53,7 @@ public class ProgrammeController {
     @RequestMapping("/edit/{id}")
     public String edit(@PathVariable Long id, Model model){
         Programme programme = programmeService.getProgramme(id);
-        ProgrammeForm programmeForm = programmeToProgrammeForm.convert(programme);
+        ProgrammeForm programmeForm = mapper.programmeToProgrammeForm(programme);
         model.addAttribute("programmeForm", programmeForm);
         return "programme/programmeForm";
     }

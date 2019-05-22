@@ -1,4 +1,5 @@
 target
+.mvn
 .settings
 .classpath
 .project
@@ -12,3 +13,4 @@ target
 *.iml
 yucca-api-data/derby.log
 yucca-api-data/mydb
+yucca-api-data/yuccaderby

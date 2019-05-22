@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -28,7 +29,6 @@ import fr.edu.aix.yuccaspringboot.utils.ArrayUtil;
 @Configuration
 @EnableWebMvc
 @ComponentScan({ "fr.edu.aix.yuccaspringboot" })
-
 public class ThymeleafMVCConfig implements WebMvcConfigurer,  ApplicationContextAware {
 
     private ApplicationContext applicationContext;

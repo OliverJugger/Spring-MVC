@@ -34,8 +34,8 @@
 	             	<div class="form-group">
 	             		 <p th:text="'État : '"></p>
 	             		 <div th:switch="${version.etat}">
-						    <div th:case="'A'" class="etat active rounded text-center">Active</div>
-						    <div th:case="'I'" class="etat inactive rounded text-center">Inactive</div>
+						    <div th:case="'A'" class="etat active rounded text-center" style="background-color : #61B508;">Active</div>
+						    <div th:case="'I'" class="etat inactive rounded text-center"  style="background-color : #C01B00;">Inactive</div>
 						    <div th:case="*" th:text="${version.etat}"></div>
 						</div>	             		
 	             	</div>

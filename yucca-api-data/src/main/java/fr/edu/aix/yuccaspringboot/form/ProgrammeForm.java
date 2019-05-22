@@ -4,7 +4,9 @@
 package fr.edu.aix.yuccaspringboot.form;
 
 import java.util.Calendar;
+import java.util.List;
 
+import fr.edu.aix.yuccaspringboot.domain.Correction;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,7 +22,11 @@ public class ProgrammeForm {
 	private String nom;
 	private String commentaire;
 	private char temporaire;
-	private Calendar dateCreation;
+	private Long idDomaine;
+	private Long idDossier;
 	private String utilisateurCreation;
+	private Calendar dateCreation;
+	private Calendar dateModification;
+	private List<Correction> corrections;
 	
 }

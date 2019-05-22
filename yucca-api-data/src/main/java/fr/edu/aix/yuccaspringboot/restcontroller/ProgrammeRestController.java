@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.edu.aix.yuccaspringboot.domain.Programme;
 import fr.edu.aix.yuccaspringboot.form.ProgrammeForm;
-import fr.edu.aix.yuccaspringboot.form.ProgrammeToProgrammeForm;
 import fr.edu.aix.yuccaspringboot.service.ProgrammeService;
 
 
@@ -23,12 +22,6 @@ import fr.edu.aix.yuccaspringboot.service.ProgrammeService;
 public class ProgrammeRestController {
 	
 	private ProgrammeService programmeService;
-	private ProgrammeToProgrammeForm programmeToProgrammeForm;	
-	
-	@Autowired
-	    public void setProgrammeToProgrammeForm(ProgrammeToProgrammeForm programmeToProgrammeForm) {
-	        this.programmeToProgrammeForm = programmeToProgrammeForm;
-	 }
 
     @Autowired
     public void setProgrammeService(ProgrammeService programmeService) {
@@ -63,12 +56,6 @@ public class ProgrammeRestController {
         return "programme/show";
     }
     
-    @RequestMapping(method=RequestMethod.PUT, value="/edit/{id}")
-    public String edit(@RequestBody Programme programme, Model model){
-        ProgrammeForm productForm = programmeToProgrammeForm.convert(programme);
-        model.addAttribute("productForm", productForm);
-        return "product/productform";
-    }
     /*
     @RequestMapping(method=RequestMethod.POST, value="/add")
     public void addProgramme(@RequestBody Programme programme) {

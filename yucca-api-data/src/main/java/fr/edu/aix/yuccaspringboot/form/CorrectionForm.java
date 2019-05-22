@@ -4,7 +4,10 @@
 package fr.edu.aix.yuccaspringboot.form;
 
 import java.util.Calendar;
+import java.util.List;
 
+import fr.edu.aix.yuccaspringboot.domain.Programme;
+import fr.edu.aix.yuccaspringboot.domain.Version;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,12 +25,14 @@ public class CorrectionForm {
 	private String probleme;
 	private String solution;
 	private String commentaire;
+	private char etat=' ';
 	private Long application;
 	private Long responsable;
-	private char etat=' ';
-	private Calendar dateCreation;
 	private String utilisateurCreation;
-	private Calendar dateModification;
 	private String utilisateurModification;
+	private Calendar dateCreation;
+	private Calendar dateModification;
+	private List<Programme> programmes;
+	private List<Version> versions;
 	
 }

@@ -42,10 +42,14 @@
 						</div>	             		
 	             	</div>
 	             	
-	             	<div class="row">
-	             		<img th:if="${correction.getTypeProbleme(correction.codeProbleme) == 'Jira'}" th:src="@{/img/jira.png}"/>
-    					<img th:if="${correction.getTypeProbleme(correction.codeProbleme) == 'Sesame'}" th:src="@{/img/sesame.png}"/>
-    					<div class="my-4" th:text="${correction.getLienProbleme(correction.codeProbleme)}"></div>
+	             	<div class="form-group">
+	             		<p th:text="'Lien(s) Problème : '" ></p>
+	             		<ul>
+	             			<li>
+	             				<a class="my-4" href="https://sirhmen.atlassian.net/browse/PAMCO-987">https://sirhmen.atlassian.net/browse/PAMCO-987</a>
+	             			</li>
+	             		</ul>
+    					
 	             	</div>
 	             	
 	             	<div class="form-group">
@@ -120,16 +124,16 @@
 	      
 	      <div class="col-lg-3">
 	      	<div class="row top-buffer"></div>
-	         <form class="form-horizontal">
+	         <form class="form-horizontal suivi">
              	<h2 class="my-4"></h2>
              	<br/>
              	<div class="form-group">
-	             		<p th:text="'Exportée : '+ 'Oui'"></p>
-	            </div>
-	            <div class="form-group">
-	            	 <div class="form-row">
-		            	<p th:text="' Embarqué dans versions :'"></p>
-		             </div>
+             			<div class="form-row">
+			            	<p th:text="'Exportée : '+ 'Oui'"></p>
+			             </div>
+		            	 <div class="form-row">
+			            	<p th:text="' Embarqué dans versions :'"></p>
+			             </div>
 		            <div th:if="${not #lists.isEmpty(correction.versions)}">
 				        <table id="datatable" class="table table-striped">
 				        	<thead>
@@ -156,7 +160,7 @@
              	<p th:text="'Création : ' + ${#dates.format(correction.dateCreation, 'dd/MM/yyyy - HH:mm')}"></p>	
              	<p th:text="'Mise à jour : ' + ${#dates.format(correction.dateModification, 'dd/MM/yyyy - HH:mm')}"></p>	
              	<div class="form-group">
-				  <label for="probleme">Commentaire :</label>
+				  <label for="probleme">Commentaire destiné à l'intégration:</label>
 				  <textarea class="form-control" rows="5" id="probleme" th:text="${correction.commentaire}"></textarea>
 				</div>
 			</form>          

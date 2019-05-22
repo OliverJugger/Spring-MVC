@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	
+	<include resource="org/springframework/boot/logging/logback/base.xml" />
+	
+	<springProperty scope="context" name="logDirectory" source="yucca.logs.pathDirectory"/>
+	<property name="LOGS_HOME" value="${logDirectory}" class="ch.qos.logback.more.appenders.DataFluentAppender"/>
+
+	<appender name="FILE-LOG-INFO"	class="ch.qos.logback.core.rolling.RollingFileAppender">
+		
+		<file>${LOGS_HOME}/info.log</file>
+		
+		<!-- Gestion du contenu des fichiers de log -->
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<charset>UTF-8</charset>  
+			<pattern>
+				%d{yyyy-MM-dd HH:mm:ss} - %msg%n
+			</pattern>
+		</encoder>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- Gestion du nom des differents fichiers de log -->
+			<fileNamePattern>${LOGS_HOME}/archived/info.%d{yyyy-MM-dd}.%i.log
+                        </fileNamePattern>
+            <!-- Gestion de la taille des fichiers de log -->
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>10MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+
+	</appender>
+
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+	  <encoder>
+	    <pattern>
+	      %d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger{36}.%M - %msg%n
+	    </pattern>
+	  </encoder>
+	</appender>
+	
+	<springProfile name="dev">
+        <logger name="fr.edu.aix.yuccaspringboot.log" level="DEBUG" additivity="false">
+        	<!-- Plus judicieux en CONSOLE car on ne peut pas savoir 
+        	le nom du disque dur de l'utilisateur (C: ou autre) -->
+            <appender-ref ref="CONSOLE" />
+        </logger>
+    </springProfile>
+    <springProfile name="prod">
+        <logger name="fr.edu.aix.yuccaspringboot.log" level="DEBUG" additivity="false">
+            <appender-ref ref="FILE-LOG-INFO" />
+        </logger>
+    </springProfile>	
+	
+	<!-- Affiche les logs présents dans ces classes qu a partir de certains LEVEL 
+		Error > Warn > Info > Debug > Trace -->
+	<logger name="ch.qos.logback.classic" level="INFO"/>	
+    <logger name="org.hibernate" level="INFO"/>
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="ch.qos.logback" level="WARN"/>
+    <logger name="com.sun" level="WARN"/>
+    <logger name="org.ehcache" level="WARN"/>
+    <logger name="org.apache" level="WARN"/>
+    
+    <!-- Defini les appenders par defaut à partir de quel niveau de log pour les elements "logger"-->
+    <root level="INFO">
+    	<appender-ref ref="FILE-LOG-INFO" />
+  	</root>
+
+</configuration>

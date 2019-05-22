@@ -1,5 +1,8 @@
 package fr.edu.aix.yuccaspringboot.controller;
 
+import java.io.IOException;
+
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import fr.edu.aix.yuccaspringboot.domain.Correction;
 import fr.edu.aix.yuccaspringboot.form.CorrectionForm;
-import fr.edu.aix.yuccaspringboot.form.CorrectionToCorrectionForm;
+import fr.edu.aix.yuccaspringboot.mapper.CorrectionMapper;
 import fr.edu.aix.yuccaspringboot.service.CorrectionService;
 import fr.edu.aix.yuccaspringboot.service.ProgrammeService;
 
@@ -23,13 +26,9 @@ public class CorrectionController {
 	
 	private CorrectionService correctionService;	
 	private ProgrammeService programmeService;
-	private CorrectionToCorrectionForm correctionToCorrectionForm;
-	
-	@Autowired
-    public void setCorrectionToCorrectionForm(CorrectionToCorrectionForm correctionToCorrectionForm) {
-        this.correctionToCorrectionForm = correctionToCorrectionForm;
-	}
-	
+
+	private CorrectionMapper mapper = Mappers.getMapper(CorrectionMapper.class);
+
 	@Autowired
     public void setCorrectionService(CorrectionService correctionService) {
         this.correctionService = correctionService;
@@ -67,7 +66,8 @@ public class CorrectionController {
 	@RequestMapping("/edit/{id}")
     public String edit(@PathVariable Long id, Model model){
         Correction correction = correctionService.getCorrection(id);
-        CorrectionForm correctionForm = correctionToCorrectionForm.convert(correction);
+        CorrectionForm correctionForm = mapper.correctionToCorrectionForm(correction);
+        //CorrectionForm correctionForm = correctionToCorrectionForm.convert(correction);
         model.addAttribute("correctionForm", correctionForm);
         return "correction/correctionForm";
     }
@@ -112,4 +112,11 @@ public class CorrectionController {
 		 correctionService.addProgrammeCorrection(idCorrection, idProgramme);
     	return "redirect:/correction/show/" + idCorrection;
     }
+	
+	
+	@RequestMapping("/exporter/{idCorrection}")
+	public String exporterCorrection(@PathVariable(value="idCorrection") Long idCorrection, Model model) throws IOException {
+		 correctionService.exporterCorrection(idCorrection);
+		 return "redirect:/correction/show/" + idCorrection;
+	}
 }
