@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import fr.edu.aix.yuccaspringboot.domain.Version;
 import fr.edu.aix.yuccaspringboot.form.VersionForm;
@@ -20,9 +21,8 @@ import fr.edu.aix.yuccaspringboot.service.VersionService;
 
 /**
  * @author omignot
- *
  */
-@Controller
+@RestController
 @RequestMapping("/version")
 public class VersionController {
 	
@@ -52,19 +52,19 @@ public class VersionController {
     }
 	
 	@RequestMapping(value="/list", method=RequestMethod.GET)
-    public String listProgrammes(Model model){
-        model.addAttribute("versions", versionService.getAllVersions());
+    public String listProgrammes(){
+        //model.addAttribute("versions", versionService.getAllVersions());
         return "/version/list";
     }
 	
 	@RequestMapping("/show/{id}")
-    public String getVersion(@PathVariable(value="id", required = true) Long id, Model model){
-        model.addAttribute("version", versionService.getVersion(id));
+    public String getVersion(@PathVariable(value="id", required = true) Long id){
+        //model.addAttribute("version", versionService.getVersion(id));
         return "version/show";
     }
 	
 	@RequestMapping(method=RequestMethod.POST, value="/add")
-    public String addVersion(Version version, Model model) {
+    public String addVersion(Version version) {
 		version.setDateCreation(Calendar.getInstance());
 		version.setUtilisateurCreation("YUCCA-BACK");
 		version.setUtilisateurModification("YUCCA-BACK");
@@ -75,17 +75,16 @@ public class VersionController {
     }
 	    
     @RequestMapping("/new")
-    public String newVersion(Model model){
-        model.addAttribute("versionForm", new VersionForm());
-        model.addAttribute("corrections", correctionService.getAllCorrections());
+    public String newVersion(){
+       // model.addAttribute("versionForm", new VersionForm());
+        //model.addAttribute("corrections", correctionService.getAllCorrections());
         return "version/versionForm";
     }
     
     @RequestMapping("/edit/{id}")
-    public String edit(@PathVariable Long id, Model model){
+    public String edit(@PathVariable Long id){
         Version version = versionService.getVersion(id);
         VersionForm versionform = versionToVersionForm.convert(version);
-        model.addAttribute("versionform", versionform);
         return "version/versionform";
     }	 
 	 
@@ -104,7 +103,7 @@ public class VersionController {
 	 * @return la page de la version dont la liaison a la correction vient d'être supprimé
 	 */
 	@RequestMapping("/{idVersion}/correction/delete/{idCorrection}")
-    public String deleteCorrection(@PathVariable(value="idVersion") Long idVersion, @PathVariable(value="idCorrection") Long idCorrection, Model model) {
+    public String deleteCorrection(@PathVariable(value="idVersion") Long idVersion, @PathVariable(value="idCorrection") Long idCorrection) {
 		 versionService.deleteVersionCorrection(idVersion, idCorrection);
     	return "redirect:/version/show/" + idVersion;
     }

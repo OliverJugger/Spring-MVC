@@ -19,13 +19,13 @@
 	</properties>
 
 	<dependencies>
-	
+		<!-- 
 		<dependency>
 	            <groupId>com.ibm.db2.jcc</groupId>
 	            <artifactId>db2jcc4</artifactId>
 	            <version>10.1</version>
 		</dependency>
-		
+		--> 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
@@ -47,18 +47,26 @@
 		    <version>5.0.2.RELEASE</version>
 		</dependency>
 		
-		
-		<dependency>
-		    <groupId>org.thymeleaf</groupId>
-		    <artifactId>thymeleaf-spring5</artifactId>
-		    <version>3.0.11.RELEASE</version>
-		</dependency>
-
 		<dependency>
 			<groupId>org.apache.derby</groupId>
 			<artifactId>derby</artifactId>
 			 <version>10.14.2.0</version>
 			<scope>runtime</scope>
+		</dependency>
+		
+		<!--  REST -->
+		<dependency>
+		    <groupId>io.springfox</groupId>
+		    <artifactId>springfox-swagger2</artifactId>
+		    <version>2.8.0</version>
+		    <scope>compile</scope>
+		</dependency>
+
+		<dependency>
+		    <groupId>io.springfox</groupId>
+		    <artifactId>springfox-swagger-ui</artifactId>
+		    <version>2.8.0</version>
+		    <scope>compile</scope>
 		</dependency>
 		
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->

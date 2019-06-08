@@ -1,6 +1,7 @@
 package fr.edu.aix.yuccaspringboot.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import fr.edu.aix.yuccaspringboot.domain.Correction;
 import fr.edu.aix.yuccaspringboot.form.CorrectionForm;
@@ -18,16 +20,13 @@ import fr.edu.aix.yuccaspringboot.service.ProgrammeService;
 
 /**
  * @author omignot
- * Avec interface Thymeleaf 
  */
-@Controller
+@RestController
 @RequestMapping("/correction")
 public class CorrectionController {
 	
 	private CorrectionService correctionService;	
 	private ProgrammeService programmeService;
-
-	private CorrectionMapper mapper = Mappers.getMapper(CorrectionMapper.class);
 
 	@Autowired
     public void setCorrectionService(CorrectionService correctionService) {
@@ -45,35 +44,29 @@ public class CorrectionController {
     }
 	
 	@RequestMapping(value="/list", method=RequestMethod.GET)
-    public String listProgrammes(Model model){
-        model.addAttribute("corrections", correctionService.getAllCorrections());
-        return "/correction/list";
+    public List<Correction> listProgrammes(){
+        return correctionService.getAllCorrections();
     }
 	
 	@RequestMapping("/new")
-    public String newProgramme(Model model){
-	 	model.addAttribute("correctionForm", new CorrectionForm());
+    public String newProgramme(){
         return "correction/correctionForm";
     }
 	
 	@RequestMapping("/show/{id}")
-    public String getProgramme(@PathVariable(value="id", required = true) Long id, Model model){
-        model.addAttribute("correction", correctionService.getCorrection(id));
-        model.addAttribute("programmes", programmeService.getAllProgrammes());
-        return "correction/show";
+    public Correction getProgramme(@PathVariable(value="id", required = true) Long id){
+        //programmeService.getAllProgrammes());
+        return  correctionService.getCorrection(id);
     }   
 	 
 	@RequestMapping("/edit/{id}")
-    public String edit(@PathVariable Long id, Model model){
+    public String edit(@PathVariable Long id){
         Correction correction = correctionService.getCorrection(id);
-        CorrectionForm correctionForm = mapper.correctionToCorrectionForm(correction);
-        //CorrectionForm correctionForm = correctionToCorrectionForm.convert(correction);
-        model.addAttribute("correctionForm", correctionForm);
         return "correction/correctionForm";
     }
 	 
 	@RequestMapping(value="/add",method=RequestMethod.POST)
-    public String addCorrection(Correction correction, Model model) {
+    public String addCorrection(Correction correction) {
 		 correction.setEtat('O');
 		 correction.setUtilisateurCreation("YUCCA-BACK");
 		 correction.setUtilisateurModification("YUCCA-BACK");
@@ -95,7 +88,7 @@ public class CorrectionController {
 	 * @return la page de la correction dont la liaison au programme vient d'être supprimé
 	 */
 	@RequestMapping("/{idCorrection}/programme/delete/{idProgramme}")
-    public String deleteProgrammeCorrection(@PathVariable(value="idCorrection") Long idCorrection, @PathVariable(value="idProgramme") Long idProgramme, Model model) {
+    public String deleteProgrammeCorrection(@PathVariable(value="idCorrection") Long idCorrection, @PathVariable(value="idProgramme") Long idProgramme) {
 		 correctionService.deleteProgrammeCorrection(idCorrection, idProgramme);
     	return "redirect:/correction/show/" + idCorrection;
     }
@@ -108,14 +101,14 @@ public class CorrectionController {
 	 * @return la page de la correction dont la liaison au programme vient d'être créée
 	 */
 	@RequestMapping("/{idCorrection}/programme/add/{idProgramme}")
-    public String addProgrammeCorrection(@PathVariable(value="idCorrection") Long idCorrection, @PathVariable(value="idProgramme") Long idProgramme, Model model) {
+    public String addProgrammeCorrection(@PathVariable(value="idCorrection") Long idCorrection, @PathVariable(value="idProgramme") Long idProgramme) {
 		 correctionService.addProgrammeCorrection(idCorrection, idProgramme);
     	return "redirect:/correction/show/" + idCorrection;
     }
 	
 	
 	@RequestMapping("/exporter/{idCorrection}")
-	public String exporterCorrection(@PathVariable(value="idCorrection") Long idCorrection, Model model) throws IOException {
+	public String exporterCorrection(@PathVariable(value="idCorrection") Long idCorrection) throws IOException {
 		 correctionService.exporterCorrection(idCorrection);
 		 return "redirect:/correction/show/" + idCorrection;
 	}

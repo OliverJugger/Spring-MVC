@@ -4,29 +4,24 @@ import java.util.Calendar;
 
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import fr.edu.aix.yuccaspringboot.domain.Programme;
-import fr.edu.aix.yuccaspringboot.form.ProgrammeForm;
 import fr.edu.aix.yuccaspringboot.mapper.ProgrammeMapper;
 import fr.edu.aix.yuccaspringboot.service.ProgrammeService;
 
 
 /**
  * @author omignot
- * Avec interface Thymeleaf
  */
-@Controller
+@RestController
 @RequestMapping("/programme")
 public class ProgrammeController {
 	
-	private ProgrammeService programmeService;	
-
-	private	ProgrammeMapper mapper = Mappers.getMapper(ProgrammeMapper.class);
+	private ProgrammeService programmeService;
 
     @Autowired
     public void setProgrammeService(ProgrammeService programmeService) {
@@ -39,27 +34,22 @@ public class ProgrammeController {
     }
 	
 	@RequestMapping(value="/list", method=RequestMethod.GET)
-    public String listProgrammes(Model model){
-        model.addAttribute("programmes", programmeService.getAllProgrammes());
+    public String listProgrammes(){
         return "/programme/list";
     }
 
     @RequestMapping("/show/{id}")
-    public String getProgramme(@PathVariable(value="id", required = true) Long id, Model model){
-        model.addAttribute("programme", programmeService.getProgramme(id));
+    public String getProgramme(@PathVariable(value="id", required = true) Long id){
         return "programme/show";
     }
     
     @RequestMapping("/edit/{id}")
-    public String edit(@PathVariable Long id, Model model){
-        Programme programme = programmeService.getProgramme(id);
-        ProgrammeForm programmeForm = mapper.programmeToProgrammeForm(programme);
-        model.addAttribute("programmeForm", programmeForm);
+    public String edit(@PathVariable Long id){
         return "programme/programmeForm";
     }
     
     @RequestMapping(method=RequestMethod.POST, value="/add")
-    public String addProgramme(Programme programme, Model model) {
+    public String addProgramme(Programme programme) {
     	programme.setDateCreation(Calendar.getInstance());
     	programme.setUtilisateurCreation("YUCCA-BACK");
     	programme.setUtilisateurModification("YUCCA-BACK");
@@ -70,8 +60,8 @@ public class ProgrammeController {
     }
     
     @RequestMapping("/new")
-    public String newProgramme(Model model){
-        model.addAttribute("programmeForm", new ProgrammeForm());
+    public String newProgramme(){
+        //model.addAttribute("programmeForm", new ProgrammeForm());
         return "programme/programmeForm";
     }
 
