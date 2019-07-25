@@ -3,10 +3,12 @@
  */
 package fr.edu.aix.yuccaspringboot.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,7 +32,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Version extends AbstractTimestampEntity {
+public class Version extends AbstractTimestampEntity implements Serializable {
+	
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -49,7 +54,7 @@ public class Version extends AbstractTimestampEntity {
 	@Column(name="MUSER")
 	private String utilisateurModification;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name="LIEN_CORRECTION_VERSION",
 			joinColumns=@JoinColumn(name="ID_VERSION", referencedColumnName = "ID"),

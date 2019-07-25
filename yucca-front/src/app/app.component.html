@@ -1,0 +1,75 @@
+<mat-sidenav-container class="container" autosize >
+
+  <mat-sidenav #drawer class="sidenav" mode="side">
+    <div id="mat-buttons-menu-container">
+
+      <button mat-button routerLink="/" class="mat-buttons-menu"><mat-icon>home</mat-icon> Accueil </button>
+      <button mat-button (click)="showProgramme = !showProgramme" class="mat-buttons-menu"><mat-icon matPrefix>code</mat-icon> Programmes <mat-icon matSuffix>keyboard_arrow_right</mat-icon></button>
+
+      <!-- Sous-menu -->
+      <button mat-button routerLink="/programme/list" *ngIf="showProgramme" class="mat-buttons-menu sous-menu">
+        <span class="mat-button-wrapper">
+          <mat-icon matPrefix>visibility</mat-icon>
+          Consulter
+        </span>
+      </button>
+      <button mat-button routerLink="/programme/ajouter" *ngIf="showProgramme" class="mat-buttons-menu sous-menu">
+        <span class="mat-button-wrapper">
+          <mat-icon matPrefix>add_circle</mat-icon>
+          Ajouter
+        </span>
+      </button>
+
+      <button mat-button routerLink="/correction" class="mat-buttons-menu"><mat-icon>check_circle</mat-icon> Correction <mat-icon matSuffix>keyboard_arrow_right</mat-icon></button>
+      <button mat-button routerLink="/version" class="mat-buttons-menu"><mat-icon>call_merge</mat-icon> Version <mat-icon matSuffix>keyboard_arrow_right</mat-icon></button>
+      <button mat-button routerLink="/version" class="mat-buttons-menu"><mat-icon>settings</mat-icon> Administration </button>
+    </div>
+  </mat-sidenav>
+
+
+    <div class="sidenav-content mat-elevation-z6">
+      <mat-toolbar class="toolbar-white">
+        <mat-toolbar-row>
+
+          <div class="flex-container">
+
+            <div class="item initial">
+              <button mat-icon-button (click)="drawer.toggle()">
+                <mat-icon>menu</mat-icon>
+              </button>
+            </div>
+
+            <div class="item auto centered">
+              <img class="logo" src="assets/img/yucca_logo.PNG">
+            </div>
+
+            <div class="item initial">
+              <!--<mat-icon>favorite</mat-icon>-->
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item>
+                  <mat-icon>publish</mat-icon>
+                  <span>Share</span>
+                </button>
+                <button mat-menu-item disabled>
+                  <mat-icon>mode_comment</mat-icon>
+                  <span>Comment</span>
+                </button>
+                <button mat-menu-item>
+                  <mat-icon>delete</mat-icon>
+                  <span>Delete</span>
+                </button>
+              </mat-menu>
+            </div>
+
+          </div>
+
+        </mat-toolbar-row>
+      </mat-toolbar>
+    </div>
+  <router-outlet></router-outlet>
+
+</mat-sidenav-container>
+

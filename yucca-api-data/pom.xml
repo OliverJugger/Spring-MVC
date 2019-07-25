@@ -16,16 +16,18 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+    	<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+    	<buildNumber>v.${project.version} build ${maven.build.timestamp}</buildNumber>
 	</properties>
 
 	<dependencies>
-		<!-- 
+	
 		<dependency>
 	            <groupId>com.ibm.db2.jcc</groupId>
 	            <artifactId>db2jcc4</artifactId>
 	            <version>10.1</version>
 		</dependency>
-		--> 
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
@@ -47,13 +49,6 @@
 		    <version>5.0.2.RELEASE</version>
 		</dependency>
 		
-		<dependency>
-			<groupId>org.apache.derby</groupId>
-			<artifactId>derby</artifactId>
-			 <version>10.14.2.0</version>
-			<scope>runtime</scope>
-		</dependency>
-		
 		<!--  REST -->
 		<dependency>
 		    <groupId>io.springfox</groupId>
@@ -61,12 +56,20 @@
 		    <version>2.8.0</version>
 		    <scope>compile</scope>
 		</dependency>
-
+		
+		<!--  REST UI SWAGGER-->
 		<dependency>
 		    <groupId>io.springfox</groupId>
 		    <artifactId>springfox-swagger-ui</artifactId>
 		    <version>2.8.0</version>
 		    <scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.derby</groupId>
+			<artifactId>derby</artifactId>
+			 <version>10.14.2.0</version>
+			<scope>runtime</scope>
 		</dependency>
 		
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
@@ -78,19 +81,19 @@
 		</dependency>
 		
 		<!-- MapStruct : Annotations Mapper et Factory -->
-		<dependency>
+		<!-- <dependency>
 		    <groupId>org.mapstruct</groupId>
 		    <artifactId>mapstruct-jdk8</artifactId>
 		    <version>1.2.0.Final</version>
 		    <scope>compile</scope>
-		</dependency>
+		</dependency> -->
 		
 		<!-- MapStruct : Créer les implementations des Mappers -->
-		<dependency>
+		<!--  <dependency>
 			<groupId>org.mapstruct</groupId>
 	        <artifactId>mapstruct-processor</artifactId>
 	        <version>1.2.0.Final</version>
-		</dependency>
+		</dependency> -->
 		
 		<!-- https://mvnrepository.com/artifact/com.jcraft/jsch -->
 		<dependency>
@@ -98,7 +101,14 @@
 		    <artifactId>jsch</artifactId>
 		    <version>0.1.55</version>
 		</dependency>
-				
+		
+		<!-- EMBEDDED PHANTOMJS pour Java-->
+		<!-- https://mvnrepository.com/artifact/com.github.jarlakxen/embedphantomjs -->
+		<dependency>
+		    <groupId>com.github.jarlakxen</groupId>
+		    <artifactId>embedphantomjs</artifactId>
+		    <version>2.8</version>
+		</dependency>				
 		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

@@ -1,0 +1,53 @@
+<mat-card>
+  <mat-card-title>Ajout d'un Programme</mat-card-title>
+  <mat-card-content>
+    <form (ngSubmit)="onSubmit()">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Nom" [formControl]="nomFormControl" [(value)]="nomProgramme">
+        <mat-hint align="end">Exemple : aagoin22.4gl</mat-hint>
+        <mat-error align="end" *ngIf="nomFormControl.hasError('nom') && !nomFormControl.hasError('required')">
+          Entrez un nom de programme valide.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Répertoire</mat-label>
+        <mat-select [(value)]="repertoireSelected">
+          <mat-option *ngFor="let repertoire of repertoires" [value]="repertoire">
+            {{repertoire.chemin}}
+          </mat-option>
+        </mat-select>
+        <mat-hint align="end">Exemple : paye/4gl</mat-hint>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Domaine</mat-label>
+        <mat-select [(value)]="domaineSelected">
+          <mat-option *ngFor="let domaine of domaines" [value]="domaine">
+            {{domaine.libelleLong}}
+          </mat-option>
+        </mat-select>
+        <mat-hint align="end">Exemple : Application Paye</mat-hint>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Sous Domaine</mat-label>
+        <mat-select [(value)]="sousDomaineSelected">
+          <mat-option *ngFor="let sousDomaine of sousDomaines" [value]="sousDomaine">
+            {{sousDomaine.libelleLong}}
+          </mat-option>
+        </mat-select>
+        <mat-hint align="end">Exemple : Rémunération Principale</mat-hint>
+      </mat-form-field>
+    <br/>
+      <mat-checkbox [labelPosition]="labelPosition" [formControl]="temporaireFormControl">Temporaire :</mat-checkbox>
+
+      <mat-form-field class="full-width">
+        <textarea matInput placeholder="Commentaire" [formControl]="commentaireFormControl"></textarea>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit" class="button">
+        <mat-icon matPrefix>add</mat-icon>
+        Ajouter
+      </button>
+
+    </form>
+  </mat-card-content>
+</mat-card>

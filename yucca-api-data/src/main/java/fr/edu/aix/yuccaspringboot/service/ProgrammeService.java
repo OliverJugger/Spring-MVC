@@ -7,7 +7,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import fr.edu.aix.yuccaspringboot.domain.Correction;
 import fr.edu.aix.yuccaspringboot.domain.Programme;
 import fr.edu.aix.yuccaspringboot.repository.ProgrammeRepository;
 
@@ -17,10 +16,8 @@ public class ProgrammeService {
 	@Autowired
 	public ProgrammeRepository programmeRepository;
 	
-	public List<Programme> getAllProgrammes(){
-        List<Programme> programmes = new ArrayList<>();
-        programmeRepository.findAllByOrderByIdDesc().forEach(programmes::add);
-        return programmes;
+	public Iterable<Programme> getAllProgrammes(){
+        return programmeRepository.findAll();
     }    
     
     public Programme getProgramme(Long id) {        
@@ -47,11 +44,11 @@ public class ProgrammeService {
     }
     
     public void deleteLiens(Long id) {
-    	Programme programme =  this.getProgramme(id);
+    	/*Programme programme =  this.getProgramme(id);
     	List<Correction> corrections = programme.getCorrections();
     	corrections.clear();
     	programme.setCorrections(corrections);
-    	programmeRepository.save(programme);
+    	programmeRepository.save(programme);*/
     }
 
     public void deleteProgramme(Long id) {

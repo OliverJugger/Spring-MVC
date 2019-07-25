@@ -3,16 +3,19 @@
  */
 package fr.edu.aix.yuccaspringboot.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.util.StringUtils;
@@ -32,7 +35,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Correction extends AbstractTimestampEntity{
+public class Correction extends AbstractTimestampEntity implements Serializable {
+	
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -69,21 +75,13 @@ public class Correction extends AbstractTimestampEntity{
 	@Column(name="MUSER", nullable=false)
 	private String utilisateurModification;	
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name="LIEN_CORRECTION_PROGRAMME",
 			joinColumns=@JoinColumn(name="ID_CORRECTION", referencedColumnName = "ID"),
 			inverseJoinColumns=@JoinColumn(name="ID_PROGRAMME", referencedColumnName = "ID")
 	)
 	private List<Programme> programmes;
-	
-	@ManyToMany
-	@JoinTable(
-			name="LIEN_CORRECTION_VERSION",
-			joinColumns=@JoinColumn(name="ID_CORRECTION", referencedColumnName = "ID"),
-			inverseJoinColumns=@JoinColumn(name="ID_VERSION", referencedColumnName = "ID")
-	)
-	private List<Version> versions;
 	
 	public Correction (String titre, String probleme) {
 		this.titre = titre;

@@ -1,5 +1,6 @@
 package fr.edu.aix.yuccaspringboot.domain;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import javax.persistence.Column;

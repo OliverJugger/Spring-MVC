@@ -1,0 +1,11 @@
+table{
+  width : 100%;
+}
+
+mat-paginator{
+  font-size: 15px;
+}
+
+.programmes-container{
+  padding : 30px;
+}
