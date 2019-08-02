@@ -71,6 +71,7 @@ public class LoggingAspect {
 	 * @throws Throwable 
 	 * @param pjp
 	 */
+	/*
 	@Around("execution(* fr.edu.aix.yuccaspringboot.controller.ProgrammeController.listProgrammes(..))")
 	public void aroundCorrection(ProceedingJoinPoint pjp) throws Throwable{
 		writeToLog("BeforeExecution", pjp);
@@ -85,7 +86,7 @@ public class LoggingAspect {
 	    } catch (Exception e) {
 	        log.error(e.getMessage());
 	    }
-	} 
+	} */
 	
 	public void writeToLog(String when, JoinPoint joinPoint) {
 		StringBuilder builder = new StringBuilder().append(" ["+when+"] ");

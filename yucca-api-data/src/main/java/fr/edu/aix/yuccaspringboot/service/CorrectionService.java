@@ -32,11 +32,11 @@ public class CorrectionService {
         return corrections;
 	}
 	
-	public List<Programme> getAllProgrammes(Long id){
+	/*public List<Programme> getAllProgrammes(Long id){
         List<Programme> programmes = new ArrayList<>();
         correctionRepository.findByProgrammesId(id).forEach(programmes::add);
         return programmes;
-    }
+    }*/
 
 	
 	 public Correction getCorrection(Long id) {   
@@ -65,26 +65,26 @@ public class CorrectionService {
 		correctionRepository.save(correctionToUpdate);
     }
     
-    public void deleteLiens(Long id) {
+    /*public void deleteLiens(Long id) {
     	Correction correction =  this.getCorrection(id);
     	List<Programme> programmes = correction.getProgrammes();
     	programmes.clear();
     	correction.setProgrammes(programmes);
     	
-    	/*
+    	
     	List<Version> versions = correction.getVersions();
     	versions.clear();
     	correction.setVersions(versions);
-    	*/
+    	
     	
     	correctionRepository.save(correction);
-    }
+    }*/
     
     public void deleteCorrection(Long id) {
     	correctionRepository.deleteById(id);
     }
     
-    public void deleteProgrammeCorrection(Long idCorrection, Long idProgramme) {
+    /*public void deleteProgrammeCorrection(Long idCorrection, Long idProgramme) {
     	Correction correction = correctionRepository.findById(idCorrection).get();
     	List<Programme> programmes = correction.getProgrammes();
     	boolean found = false;
@@ -99,16 +99,16 @@ public class CorrectionService {
     	}    	
     	correction.setProgrammes(programmes);
     	correctionRepository.save(correction);
-    }
+    }*/
 
-	public void addProgrammeCorrection(Long idCorrection, Long idProgramme) {
+	/*public void addProgrammeCorrection(Long idCorrection, Long idProgramme) {
 		Correction correction = correctionRepository.findById(idCorrection).get();
     	List<Programme> programmes = correction.getProgrammes();
     	Programme programme = programmeRepository.findById(idProgramme).get();
     	programmes.add(programme);
     	correction.setProgrammes(programmes);
     	correctionRepository.save(correction);
-	}
+	}*/
 	
 	public void exporterCorrection(Long idCorrection) throws IOException {
 		Correction correction = correctionRepository.findById(idCorrection).get();

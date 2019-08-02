@@ -1,33 +1,43 @@
 package fr.edu.aix.yuccaspringboot.controller;
 
 import java.io.IOException;
+import java.util.List;
 
-import org.mapstruct.factory.Mappers;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import fr.edu.aix.yuccaspringboot.domain.Correction;
-import fr.edu.aix.yuccaspringboot.form.CorrectionForm;
-import fr.edu.aix.yuccaspringboot.mapper.CorrectionMapper;
+import fr.edu.aix.yuccaspringboot.domain.Programme;
 import fr.edu.aix.yuccaspringboot.service.CorrectionService;
 import fr.edu.aix.yuccaspringboot.service.ProgrammeService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 /**
  * @author omignot
- * Avec interface Thymeleaf 
+ * Controller REST de la gestion des Corrections de Yucca
  */
-@Controller
-@RequestMapping("/correction")
+@RestController
+@Api(value = "Operations de gestion des corrections")
+@RequestMapping(value = "/correction")
 public class CorrectionController {
 	
 	private CorrectionService correctionService;	
 	private ProgrammeService programmeService;
 
-	private CorrectionMapper mapper = Mappers.getMapper(CorrectionMapper.class);
+	//private CorrectionMapper mapper = Mappers.getMapper(CorrectionMapper.class);
 
 	@Autowired
     public void setCorrectionService(CorrectionService correctionService) {
@@ -39,52 +49,57 @@ public class CorrectionController {
         this.programmeService = programmeService;
 	}
 	
-	@RequestMapping("/")
-    public String redirToList(){
-        return "redirect:/correction/list";
-    }
+	@GetMapping(value="")
+	@ApiOperation(value = "Retourne les données de toutes les corrections")
+	public ResponseEntity<List<Correction>> listCorrections(){
+		List<Correction> corrections = correctionService.getAllCorrections();
+        return new ResponseEntity<>(corrections, HttpStatus.OK);
+    } 
 	
-	@RequestMapping(value="/list", method=RequestMethod.GET)
-    public String listProgrammes(Model model){
-        model.addAttribute("corrections", correctionService.getAllCorrections());
-        return "/correction/list";
-    }
-	
-	@RequestMapping("/new")
-    public String newProgramme(Model model){
-	 	model.addAttribute("correctionForm", new CorrectionForm());
-        return "correction/correctionForm";
-    }
-	
-	@RequestMapping("/show/{id}")
-    public String getProgramme(@PathVariable(value="id", required = true) Long id, Model model){
-        model.addAttribute("correction", correctionService.getCorrection(id));
-        model.addAttribute("programmes", programmeService.getAllProgrammes());
-        return "correction/show";
-    }   
-	 
-	@RequestMapping("/edit/{id}")
-    public String edit(@PathVariable Long id, Model model){
+	@GetMapping(value="/rechercher/{idCorrection}")
+	@ApiOperation(value = "Retourne les données d'une correction")
+	 public ResponseEntity<Correction> getCorrection(@PathVariable(value="idCorrection", required = true) Long id){
         Correction correction = correctionService.getCorrection(id);
-        CorrectionForm correctionForm = mapper.correctionToCorrectionForm(correction);
-        //CorrectionForm correctionForm = correctionToCorrectionForm.convert(correction);
-        model.addAttribute("correctionForm", correctionForm);
-        return "correction/correctionForm";
-    }
-	 
-	@RequestMapping(value="/add",method=RequestMethod.POST)
-    public String addCorrection(Correction correction, Model model) {
-		 correction.setEtat('O');
-		 correction.setUtilisateurCreation("YUCCA-BACK");
-		 correction.setUtilisateurModification("YUCCA-BACK");
-		 correction.setApplication(new Long(30));
-		 correction.setResponsable(new Long(50));
+        return new ResponseEntity<>(correction, HttpStatus.OK);
+    } 
+
+	/*@GetMapping(value="/{idCorrection}/listeProgrammes")	
+	@ApiOperation(value = "Retourne la liste de tous les programmes d'une correction")
+    public ResponseEntity<List<Programme>> getCorrectionlistProgrammes(@PathVariable(value="idCorrection", required = true) Long id){
+        Correction correction = correctionService.getCorrection(id);
+        List<Programme> programmesCorrection = correction.getProgrammes();
+        return new ResponseEntity<>(programmesCorrection, HttpStatus.OK);
+    }*/
+	
+	@PutMapping("/enregistrer")
+	@ApiOperation(value = "Met à jour une correction")
+    public ResponseEntity<Correction> updateCorrection(@RequestBody @Valid final Correction correction){
+		 	 
 		 if(correction.getId() != null) {
 			 correctionService.updateCorrection(correction);
 		 } else {
 			 correctionService.addCorrection(correction);
 		 }
-        return "redirect:/correction/list";
+        return new ResponseEntity<>(correction, HttpStatus.CREATED);
+    }
+	
+	@PostMapping("/enregistrer")
+	@ApiOperation(value = "Enregistre ou met à jour une correction")
+    public ResponseEntity<Correction> addCorrection(@RequestBody @Valid final Correction correction){
+		 
+		 if(correction.getId() != null) {
+			 correctionService.updateCorrection(correction);
+		 } else {
+			 correctionService.addCorrection(correction);
+		 }
+        return new ResponseEntity<>(correction, HttpStatus.CREATED);
+    }
+	
+	@DeleteMapping("/supprimmer/{idCorrection}")
+	@ApiOperation(value = "Supprime une correction")
+    public ResponseEntity<?> deleteCorrection(@PathVariable(value="idCorrection") Long idCorrection) {
+		 correctionService.deleteCorrection(idCorrection);
+		 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 	
 	/**
@@ -94,11 +109,12 @@ public class CorrectionController {
 	 * @param model
 	 * @return la page de la correction dont la liaison au programme vient d'être supprimé
 	 */
-	@RequestMapping("/{idCorrection}/programme/delete/{idProgramme}")
-    public String deleteProgrammeCorrection(@PathVariable(value="idCorrection") Long idCorrection, @PathVariable(value="idProgramme") Long idProgramme, Model model) {
+	/*@DeleteMapping("/{idCorrection}/supprimer_programme/{idProgramme}")
+	@ApiOperation(value = "Supprime un programme d'une correction")
+    public ResponseEntity<?> deleteProgrammeCorrection(@PathVariable(value="idCorrection") Long idCorrection, @PathVariable(value="idProgramme") Long idProgramme) {
 		 correctionService.deleteProgrammeCorrection(idCorrection, idProgramme);
-    	return "redirect:/correction/show/" + idCorrection;
-    }
+		 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }*/
 	
 	/**
 	 *  Fonction d'ajout de liaison dans table LIEN_CORRECTION_PROGRAMME
@@ -107,16 +123,18 @@ public class CorrectionController {
 	 * @param model
 	 * @return la page de la correction dont la liaison au programme vient d'être créée
 	 */
-	@RequestMapping("/{idCorrection}/programme/add/{idProgramme}")
-    public String addProgrammeCorrection(@PathVariable(value="idCorrection") Long idCorrection, @PathVariable(value="idProgramme") Long idProgramme, Model model) {
+	/*@GetMapping(value = "/{idCorrection}/ajouter_programme/{idProgramme}")
+	@ApiOperation(value = "Ajout un programme à une correction")
+    public ResponseEntity<?> addProgrammeCorrection(@PathVariable(value="idCorrection") Long idCorrection, @PathVariable(value="idProgramme") Long idProgramme) {
 		 correctionService.addProgrammeCorrection(idCorrection, idProgramme);
-    	return "redirect:/correction/show/" + idCorrection;
-    }
+    	return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }*/
 	
 	
-	@RequestMapping("/exporter/{idCorrection}")
-	public String exporterCorrection(@PathVariable(value="idCorrection") Long idCorrection, Model model) throws IOException {
+	@GetMapping(value = "/exporter/{idCorrection}")
+	@ApiOperation(value = "Exporte une correction")
+	public ResponseEntity<?> exporterCorrection(@PathVariable(value="idCorrection") Long idCorrection, Model model) throws IOException {
 		 correctionService.exporterCorrection(idCorrection);
-		 return "redirect:/correction/show/" + idCorrection;
+		 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 }

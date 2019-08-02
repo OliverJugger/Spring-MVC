@@ -26,7 +26,7 @@ public class VersionService {
 	
 	public List<Version> getAllVersions(){
         List<Version> versions = new ArrayList<>();
-        versionRepository.findAll().forEach(versions::add);
+        versionRepository.findAllByOrderByIdDesc().forEach(versions::add);
         return versions;
     }    
     
@@ -43,19 +43,20 @@ public class VersionService {
     	versionRepository.save(programme);
     }
     
-    public void deleteLiens(Long id) {
+    /*public void deleteLiens(Long id) {
     	Version version =  this.getVersion(id);
     	List<Correction> corrections = version.getCorrections();
     	corrections.clear();
     	version.setCorrections(corrections);
     	
     	versionRepository.save(version);
-    }
+    }*/
 
     public void deleteVersion(Long id) {
     	versionRepository.deleteById(id);
     }
 
+    /*
 	public void deleteVersionCorrection(Long idVersion, Long idCorrection) {
 		Version version = versionRepository.findById(idVersion).get();
     	List<Correction> corrections = version.getCorrections();
@@ -71,6 +72,6 @@ public class VersionService {
     	}    	
     	version.setCorrections(corrections);
     	versionRepository.save(version);
-    }
+    }*/
 
 }

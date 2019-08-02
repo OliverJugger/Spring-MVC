@@ -8,7 +8,6 @@ import fr.edu.aix.yuccaspringboot.domain.Programme;
 
 public interface CorrectionRepository extends CrudRepository<Correction, Long> {
 	
-	List<Programme> findByProgrammesId (Long id);
 	List<Correction> findAllByOrderByIdDesc();
 
 }
