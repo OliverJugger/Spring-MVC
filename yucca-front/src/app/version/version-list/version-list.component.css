@@ -1,0 +1,23 @@
+table{
+  width : 100%;
+}
+
+mat-paginator{
+  font-size: 15px;
+}
+
+.versions-container{
+  margin:auto;
+  width : 90%;
+  padding : 30px;
+}
+
+.bouton-ajouter{
+  margin-left : 50px;
+}
+
+
+.mat-row:hover {
+  background-color: #53ffca;
+  cursor: pointer;
+}
