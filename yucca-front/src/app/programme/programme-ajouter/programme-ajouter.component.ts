@@ -20,7 +20,9 @@ import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
 export class ProgrammeAjouterComponent implements OnInit, OnChanges {
 
   @Input() programmeInput: Programme;
+  @Input () actionInput;
   @Output() updateView = new EventEmitter();
+  @Output() cancelAction = new EventEmitter();
 
   nomFormControl: FormControl;
   temporaireFormControl: FormControl;
@@ -60,7 +62,6 @@ export class ProgrammeAjouterComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     this.initForm();
-    console.log(this.repertoires);
   }
 
   initForm() {
@@ -78,7 +79,7 @@ export class ProgrammeAjouterComponent implements OnInit, OnChanges {
     }
   }
 
-  onSubmit() {
+  onSubmitSave() {
     if (this.temporaireFormControl.value === true) {
       this.programmeInput.temporaire = 'O';
     } else {
@@ -95,6 +96,7 @@ export class ProgrammeAjouterComponent implements OnInit, OnChanges {
     this.programmeInput.sousDomaine = this.sousDomaines.filter(
       sousDom => sousDom.libelleLong === this.programmeInput.sousDomaine.libelleLong)[0];
 
+    console.log('programme envoye en back :');
     console.log(this.programmeInput);
     this.programmeService.addProgramme(this.programmeInput).subscribe(
       created => {
@@ -107,11 +109,46 @@ export class ProgrammeAjouterComponent implements OnInit, OnChanges {
     );
   }
 
+  onSubmitRechercher() {
+    if (this.temporaireFormControl.value === true) {
+      this.programmeInput.temporaire = 'O';
+    } else {
+      this.programmeInput.temporaire = 'N';
+    }
+
+    this.programmeInput.nom = this.nomFormControl.value;
+    this.programmeInput.commentaire = this.commentaireFormControl.value;
+
+    this.programmeInput.repertoire = this.repertoires.filter(
+      rep => rep.chemin === this.programmeInput.repertoire.chemin)[0];
+    this.programmeInput.domaine = this.domaines.filter(
+      dom => dom.libelleLong === this.programmeInput.domaine.libelleLong)[0];
+    this.programmeInput.sousDomaine = this.sousDomaines.filter(
+      sousDom => sousDom.libelleLong === this.programmeInput.sousDomaine.libelleLong)[0];
+
+    this.programmeService.getProgrammes(this.programmeInput).subscribe(
+      result => {
+        console.log('resultat');
+        console.log(result);
+        this.message('Votre programme a été recherché avec succès.');
+        this.updateView.emit('success');
+      },
+      error =>  {
+        this.message('Erreur pendant enregistrement.');
+      }
+    );
+
+  }
+
   message(message) {
     const config = new MatSnackBarConfig();
     config.verticalPosition = 'top';
     config.horizontalPosition = 'center';
     config.duration = 5000;
     this.snackBar.open(message, 'Fermer', config);
+  }
+
+  cancel() {
+    this.cancelAction.emit('cancel');
   }
 }

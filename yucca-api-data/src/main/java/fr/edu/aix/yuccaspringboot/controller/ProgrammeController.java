@@ -44,15 +44,21 @@ public class ProgrammeController {
 		return new ResponseEntity<>(programmeService.getAllProgrammes(), HttpStatus.OK);
     }
 
-    @GetMapping("/rechercher/{id}")
-    public ResponseEntity<Programme> getProgramme(@PathVariable(value="id", required = true) Long id){
-        return new ResponseEntity<>(programmeService.getProgramme(id), HttpStatus.OK);
+    @PostMapping("/rechercher")
+	@ApiOperation(value = "Recherche une liste de programmes à partir d'un programme")
+    public ResponseEntity<Iterable<Programme>> getProgrammes(@RequestBody @Valid final Programme programme){
+    	ResponseEntity<Iterable<Programme>> response = new ResponseEntity<>(programmeService.getProgrammes(programme), HttpStatus.OK);
+    	return response;
     }
 
     @PostMapping("/enregistrer")
 	@ApiOperation(value = "Enregistre ou met à jour un programme")
-    public ResponseEntity<Programme> saveProgramme(@RequestBody @Valid final Programme programme){
-        programmeService.saveProgramme(programme);
+    public ResponseEntity<Programme> addProgramme(@RequestBody @Valid final Programme programme){
+    	
+    	programme.setUtilisateurCreation("YUCCA-BACK");
+    	programme.setUtilisateurModification("YUCCA-BACK");
+    	
+        programmeService.saveProgramme(programme);   
         return new ResponseEntity<>(programme, HttpStatus.CREATED);
     }
 

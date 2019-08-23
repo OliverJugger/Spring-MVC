@@ -8,7 +8,6 @@ export class Programme {
   utilisateurCreation: string;
   utilisateurModification: string;
   id: number;
-  idProgramme: number;
   nom: string;
   commentaire: string;
   temporaire: string;
@@ -17,15 +16,14 @@ export class Programme {
   sousDomaine: SousDomaine;
 
   constructor(public dateCreationVal?: number, public dateModificationVal?: number, public idVal?: number,
-              public idProgrammeVal?: number, public nomVal?: string, public commentaireVal?: string,
-              public temporaireVal?: string, public domaineVal?: Domaine, public repertoireVal?: Repertoire,
-              public sousDomaineVal?: SousDomaine, public utilisateurCreationVal?: string, public utilisateurModificationVal?: string) {
+              public nomVal?: string, public commentaireVal?: string, public temporaireVal?: string,
+              public domaineVal?: Domaine, public repertoireVal?: Repertoire, public sousDomaineVal?: SousDomaine,
+              public utilisateurCreationVal?: string, public utilisateurModificationVal?: string) {
    this.dateCreation = dateCreationVal;
    this.dateModification = dateModificationVal;
    this.utilisateurCreation = utilisateurCreationVal;
    this.utilisateurModification = utilisateurModificationVal;
    this.id = idVal;
-   this.idProgramme = idProgrammeVal;
    this.nom = nomVal;
    this.commentaire = commentaireVal;
    this.temporaire = temporaireVal;

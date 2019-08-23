@@ -30,9 +30,6 @@
   border-bottom : 5px solid #5c6bc0;
 }
 
-.mat-sidenav-content{
-}
-
 .mat-sidenav{
   width : 10%;
   background-color: #5c6bc0;
@@ -48,5 +45,5 @@
 }
 
 #sideNavContainer {
-  height: -webkit-fill-available;
+  height: auto;
 }

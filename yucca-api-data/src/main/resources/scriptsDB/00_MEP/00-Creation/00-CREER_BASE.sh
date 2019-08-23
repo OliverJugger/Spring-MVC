@@ -1,0 +1,1 @@
+db2 CREATE database YUCBASE3 automatic storage YES ON /db2data/db2dev/yucbase3/ ALIAS YUCBASE3 USING codeset UTF-8 territory fr RESTRICTIVE;

@@ -9,5 +9,6 @@ import fr.edu.aix.yuccaspringboot.domain.Programme;
 public interface CorrectionRepository extends CrudRepository<Correction, Long> {
 	
 	List<Correction> findAllByOrderByIdDesc();
+	List<Correction> findAllByOrderByIdAsc();
 
 }

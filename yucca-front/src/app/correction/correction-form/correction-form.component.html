@@ -1,61 +1,56 @@
-<div *ngIf="correctionInput" id="correctionForm" >
+<div *ngIf="correctionIsOpen" id="correctionForm" >
   <mat-card class="mat-elevation-z8">
-    <mat-card-title>Ajout d'une Correction</mat-card-title> 
+    <mat-card-title *ngIf="this.correctionInput.id == null; else modification">Ajout d'une Correction</mat-card-title>
+    <mat-card-title *ngIf="this.correctionInput.id != null; else modification">Modification d'une Correction</mat-card-title> 
     <mat-card-content> 
-      <form>
+      <form (ngSubmit)="onSubmit()">
         <div class="topForm">
             <mat-form-field class="fieldForm">
                 <mat-label>Auteur :</mat-label>
-                <mat-select>
+                <mat-select [compareWith]="compareObjectsAuteur" [(ngModel)]="this.correctionInput.auteur" name="auteurAlias">
                     <mat-option *ngFor="let auteur of auteurs" [value]="auteur">
-                      {{auteur}}
+                      {{auteur.alias}}
                     </mat-option>
                 </mat-select>
               </mat-form-field>
               
               <mat-form-field class="fieldForm">
-                  <mat-label>Application :</mat-label>
-                  <mat-select>
-                      <mat-option *ngFor="let auteur of auteurs" [value]="auteur">
-                        {{auteur}}
+                  <mat-label>Domaine :</mat-label>
+                  <mat-select [compareWith]="compareObjectsDomain" [(ngModel)]="this.correctionInput.domaine" name="domainLibelleCourt">
+                      <mat-option *ngFor="let domain of domaines" [value]="domain">
+                        {{domain.libelleCourt}}
                       </mat-option>
                   </mat-select>
               </mat-form-field> 
+        </div>        
+
+        
+        <div>
+            <span>Titre :</span>
+            <input #textbox type="text" [(ngModel)]="this.correctionInput.titre" name="titre"/>
         </div>
 
-        <div class="topForm">
-            <mat-form-field id="titreCorrection">            
-                <input matInput placeholder="Titre de la correction"/>
-            </mat-form-field>
-    
-            <div id="lienProbleme"> 
-              <span>Lien problème : </span>         
-              <input name="lienProbleme">
-              <button (click)="ajouterLienProbleme()">Ajouter</button>
-            </div>
-        </div> 
-
         <div>
-          <p>Problème :</p>
-          <textarea id="correctionProbleme" name="correctionProbleme" ></textarea>
+            <p>Probleme :</p>
+            <textarea #textbox type="text" [(ngModel)]="this.correctionInput.probleme" name="probleme"></textarea>
         </div>
 
         <div>
             <p>Solution :</p>
-            <textarea id="correctionSolution" name="correctionSolution" ></textarea>
+            <textarea #textbox [(ngModel)]="this.correctionInput.solution" name="correction" ></textarea>
         </div>
 
         <div>
             <p>Commentaires à destination de l'intégration :</p>
-            <textarea id="correctionCommentaire" name="correctionCommentaire" ></textarea>
+            <textarea #textbox [(ngModel)]="this.correctionInput.commentaire" name="commentaire" ></textarea>
         </div>
 
         <div class="submit">
-          <button mat-raised-button color="primary" class="button" (click)="ajouterUneCorrection()">
+          <button mat-raised-button color="primary" type="button" class="button" (click)="ajouterUneCorrection()">
                 <mat-icon matPrefix>add</mat-icon>
                 Ajouter
           </button>
-          <button mat-raised-button color="primary" class="button" (click)="ajouterUneCorrection()">
+          <button mat-raised-button color="primary" type="button" class="button" (click)="annulerAjout()">
               <mat-icon matPrefix>cancel</mat-icon>
               Annuler
           </button>

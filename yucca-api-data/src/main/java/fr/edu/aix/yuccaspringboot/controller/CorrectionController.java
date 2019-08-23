@@ -1,6 +1,7 @@
 package fr.edu.aix.yuccaspringboot.controller;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -51,9 +52,8 @@ public class CorrectionController {
 	
 	@GetMapping(value="")
 	@ApiOperation(value = "Retourne les données de toutes les corrections")
-	public ResponseEntity<List<Correction>> listCorrections(){
-		List<Correction> corrections = correctionService.getAllCorrections();
-        return new ResponseEntity<>(corrections, HttpStatus.OK);
+	public ResponseEntity<Iterable<Correction>> listCorrections(){		
+        return new ResponseEntity<>(correctionService.getAllCorrections(), HttpStatus.OK);
     } 
 	
 	@GetMapping(value="/rechercher/{idCorrection}")
@@ -90,6 +90,9 @@ public class CorrectionController {
 		 if(correction.getId() != null) {
 			 correctionService.updateCorrection(correction);
 		 } else {
+			 System.out.println("Correction a ajouter : "  + correction.getTitre());
+			 correction.setUtilisateurCreation("YUCCA-BACK");
+			 correction.setUtilisateurModification("YUCCA-BACK");			 
 			 correctionService.addCorrection(correction);
 		 }
         return new ResponseEntity<>(correction, HttpStatus.CREATED);

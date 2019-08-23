@@ -25,6 +25,7 @@ export class ProgrammeListComponent implements OnInit {
 
   public programmes: Programme[] = [];
   selectedProgramme: Programme;
+  selectedAction: string;
 
   constructor(private programmeService: ProgrammeService, public snackBar: MatSnackBar) {}
 
@@ -34,20 +35,24 @@ export class ProgrammeListComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.programmesDataSource.filter = filterValue.trim().toLowerCase();
+    this.programmes = this.programmesDataSource.data;
     if (this.programmesDataSource.paginator) {
       this.programmesDataSource.paginator.firstPage();
     }
   }
 
   onSelect(programme: Programme) {
+    this.selectedAction = 'Modifier';
     this.selectedProgramme = programme;
   }
 
   ajouterProgramme() {
+    this.selectedAction = 'Ajouter';
     this.selectedProgramme = programmeDefault;
   }
 
   rechercherProgramme() {
+    this.selectedAction = 'Rechercher';
     this.selectedProgramme = programmeDefault;
   }
 
@@ -62,6 +67,10 @@ export class ProgrammeListComponent implements OnInit {
 
   onUpdate(event) {
     this.initMatTable();
+  }
+
+  onCancel(event) {
+    this.selectedProgramme = null;
   }
 
   initMatTable() {

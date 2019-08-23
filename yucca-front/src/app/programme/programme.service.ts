@@ -19,6 +19,11 @@ export class ProgrammeService {
     return this.http.get<Programme[]>(this.ressources.server + 'programme');
   }
 
+  public getProgrammes(programme: Programme) {
+    const body = JSON.stringify(programme);
+    return this.http.post<Programme[]>(this.ressources.server + 'programme/rechercher', body, options);
+  }
+
   public addProgramme(programme: Programme) {
     const body = JSON.stringify(programme);
     return this.http.post(this.ressources.server + 'programme/enregistrer', body, options);

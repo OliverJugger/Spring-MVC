@@ -1,0 +1,2 @@
+Se connecter à mndiv2-2 avec le login "db2dev" pour passer les scripts 00-CREER-BASE.sql et 01-PARAMETRAGE.sh
+Se connecter à YUCBASE3 pour passer les scripts SQL après la phase "00-Creation"

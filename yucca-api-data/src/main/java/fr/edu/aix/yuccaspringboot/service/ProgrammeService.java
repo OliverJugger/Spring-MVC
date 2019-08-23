@@ -27,6 +27,10 @@ public class ProgrammeService {
         return null;
     }
     
+    public Iterable<Programme> getProgrammes(Programme programme) {        
+    	return programmeRepository.findByNomIgnoreCaseContainingAndCommentaireIgnoreCaseContainingAndTemporaireAndDomaine(programme.getNom(), programme.getCommentaire(), programme.getTemporaire(), programme.getDomaine());
+    }
+    
     public void saveProgramme(Programme programme) {
     	programmeRepository.save(programme);
     }

@@ -3,27 +3,19 @@ import {Programme} from './programme';
 import {SousDomaine} from "./sousDomaine";
 import {Repertoire} from "./repertoire";
 import {Domaine} from "./domaine";
-import {Version} from './version';
+import { Auteur } from './auteur';
+import { Version } from './version';
 
-export const CORRECTIONS1: Correction[] = [
-  {id: 1, probleme: 'Probleme 1.1', solution: 'Solution 1.1', etat: 'Ouvert'},
-  {id: 2, probleme: 'Probleme 1.2', solution: 'Solution 1.1', etat: 'Ouvert'},
-  {id: 3, probleme: 'Probleme 1.3', solution: 'Solution 1.1', etat: 'Ouvert'},
-  {id: 4, probleme: 'Probleme 1.4', solution: 'Solution 1.1', etat: 'Ouvert'},
-  {id: 5, probleme: 'Probleme 1.5', solution: 'Solution 1.1', etat: 'Ouvert'},
-  {id: 6, probleme: 'Probleme 1.6', solution: 'Solution 1.1', etat: 'Ouvert'},
-  {id: 7, probleme: 'Probleme 1.7', solution: 'Solution 1.1', etat: 'Ouvert'}
-];
+export const versionDefault: Version = {
+  utilisateurCreation: 'YUCCA-FRONT',
+  utilisateurModification: 'YUCCA-FRONT',
+  dateCreation: null,
+  dateModification: null,
+  id: null,
+  libelle: '',
+  etat: ''
+};
 
-export const CORRECTIONS2: Correction[] = [
-  {id: 1, probleme: 'Probleme 2.1', solution: 'Solution 1.1', etat: 'Ouvert'},
-  {id: 2, probleme: 'Probleme 2.2', solution: 'Solution 1.1', etat: 'Ouvert'},
-  {id: 3, probleme: 'Probleme 2.3', solution: 'Solution 1.1', etat: 'Ouvert'},
-  {id: 4, probleme: 'Probleme 2.4', solution: 'Solution 1.1', etat: 'Ouvert'},
-  {id: 5, probleme: 'Probleme 2.5', solution: 'Solution 1.1', etat: 'Ouvert'},
-  {id: 6, probleme: 'Probleme 2.6', solution: 'Solution 1.1', etat: 'Ouvert'},
-  {id: 7, probleme: 'Probleme 2.7', solution: 'Solution 1.1', etat: 'Ouvert'}
-];
 
 export const repertoireDefault: Repertoire = {
   id: 14,
@@ -46,11 +38,17 @@ export const domaineDefault: Domaine = {
   visible: '1'
 };
 
+export const auteurDefault : Auteur = {
+  id : 32,
+  nom : "Christophe MECKER",
+  alias : "CM",
+  actif : "O"
+}
+
 export const programmeDefault: Programme = {
   dateCreation: null,
   dateModification: null,
   id: null,
-  idProgramme: null,
   nom: '',
   commentaire: '',
   temporaire: 'N',
@@ -63,17 +61,12 @@ export const programmeDefault: Programme = {
 
 export const correctionDefault: Correction = {
   id : null,
-  probleme : 'problemeDefault',
-  solution : 'solutionDefault',
-  etat : 'etatDefault'
-};
-
-export const versionDefault: Version = {
-  id: null,
-  libelle: '',
-  etat: 'A',
-  utilisateurCreation: 'YUCCA-FRONT',
-  utilisateurModification: 'YUCCA-FRONT',
-  dateCreation: null,
-  dateModification: null
+  probleme : "",
+  solution : "",
+  etat : 'O',
+  auteur : null,
+  domaine : null,
+  titre : "",
+  commentaire : ""
+  
 };

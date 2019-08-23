@@ -1,4 +1,4 @@
-<app-programme-ajouter (updateView)="onUpdate($event)" [programmeInput]="selectedProgramme"></app-programme-ajouter>
+<app-programme-ajouter (cancelAction)="onCancel($event)"(updateView)="onUpdate($event)" [programmeInput]="selectedProgramme" [actionInput]="selectedAction"></app-programme-ajouter>
 <app-spinner [spinner]="spinner"></app-spinner>
 <div class="programmes-container">
   <mat-form-field>

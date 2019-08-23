@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
 import fr.edu.aix.yuccaspringboot.domain.Domaine;
-import fr.edu.aix.yuccaspringboot.domain.Repertoire;
 
 public interface DomaineRepository extends CrudRepository<Domaine, Long>{
 

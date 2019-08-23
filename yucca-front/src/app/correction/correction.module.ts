@@ -13,6 +13,11 @@ import { MatButtonModule } from '@angular/material';
 import {MatSelectModule} from '@angular/material/select';
 import { MatCardModule} from '@angular/material';
 import {MatInputModule} from '@angular/material';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatPaginatorIntl} from '@angular/material';
+import {getFrenchPaginatorIntl} from '../traduction/french-paginator-intl';
+import { FormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [CorrectionListComponent, CorrectionAjouterComponent, CorrectionFormComponent],
@@ -26,7 +31,13 @@ import {MatInputModule} from '@angular/material';
     MatButtonModule,
     MatSelectModule,
     MatCardModule,
-    MatInputModule
+    MatInputModule,
+    MatPaginatorModule,
+    FormsModule,
+    SharedModule
+  ],
+  providers: [
+    { provide : MatPaginatorIntl, useValue: getFrenchPaginatorIntl()}
   ]
 })
 export class CorrectionModule { }

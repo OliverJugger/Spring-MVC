@@ -10,6 +10,8 @@ mat-paginator{
   margin:auto;
   width : 90%;
   padding : 30px;
+  height: 600px;
+  overflow: initial;
 }
 
 .bouton-ajouter{
@@ -26,5 +28,5 @@ app-spinner {
   z-index: 100 !important;;
   position: absolute;
   left: 40%;
-  top : 60%;
+  top : 25%;
 }

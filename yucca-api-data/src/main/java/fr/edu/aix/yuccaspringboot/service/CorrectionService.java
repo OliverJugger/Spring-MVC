@@ -2,6 +2,7 @@ package fr.edu.aix.yuccaspringboot.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,8 +29,9 @@ public class CorrectionService {
 	
 	public List<Correction> getAllCorrections(){
 		List<Correction> corrections = new ArrayList<>();
-        correctionRepository.findAll().forEach(corrections::add);
-        return corrections;
+        correctionRepository.findAllByOrderByIdAsc().forEach(corrections::add);
+        Collections.reverse(corrections);
+        return corrections; 
 	}
 	
 	/*public List<Programme> getAllProgrammes(Long id){
